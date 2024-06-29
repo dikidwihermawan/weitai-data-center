@@ -1,11 +1,11 @@
 import { Tables } from "../../components/molecules";
 
-function Home() {
+function ColorWindow() {
   return (
     <div className="m-10">
-      <h2>Hello World</h2>
+      <Tables />
     </div>
   );
 }
 
-export default Home;
+export default ColorWindow;
