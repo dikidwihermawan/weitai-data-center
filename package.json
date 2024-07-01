@@ -10,11 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tabler/icons-react": "^3.7.0",
     "axios": "^1.7.2",
     "react": "^18.2.0",
+    "react-data-table-component": "^7.6.2",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.1",
-    "react-toastify": "^10.0.5"
+    "styled-components": "^6.1.11",
+    "sweetalert": "^2.1.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 
 function CreateColorWindow() {
   const redirect = useNavigate();
@@ -16,36 +16,31 @@ function CreateColorWindow() {
 
   const data = { customer, material, code, color, date, csdate, qty };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post("/colorwindow", data);
-      toast.success(response.data.message, {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: false,
-        progress: 0,
-        theme: "light",
-        transition: "Slide",
-      });
-      // redirect("/colorwindow");
-    } catch (e) {
-      toast.error(e, {
-        position: "bottom-right",
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: false,
-        progress: 0,
-        theme: "light",
-        transition: "Slide",
-      });
-    }
+    swal({
+      title: "Are you sure?",
+      text: "Do you want to add data?",
+      icon: "info",
+      buttons: true,
+      dangerMode: false,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        try {
+          const response = await axios.post("/colorwindow", data);
+          swal(response.data.success, {
+            icon: "success",
+          });
+          redirect("/colorwindow");
+        } catch (e) {
+          swal("You must fill in any fields", {
+            icon: "error",
+          });
+        }
+      }
+    });
   };
+
   return (
     <div className="m-10">
       <h1 className="font-bold uppercase mb-10">Create new color window</h1>
