@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function CreateColorWindow() {
+  const redirect = useNavigate();
+
   const [customer, setCustomer] = useState("");
   const [material, setMaterial] = useState("");
   const [code, setCode] = useState("");
@@ -12,23 +16,50 @@ function CreateColorWindow() {
 
   const data = { customer, material, code, color, date, csdate, qty };
 
-  const handleSubmit = () => {
-    console.log(data);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("/colorwindow", data);
+      toast.success(response.data.message, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: false,
+        progress: 0,
+        theme: "light",
+        transition: "Slide",
+      });
+      // redirect("/colorwindow");
+    } catch (e) {
+      toast.error(e, {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: false,
+        progress: 0,
+        theme: "light",
+        transition: "Slide",
+      });
+    }
   };
-
   return (
     <div className="m-10">
       <h1 className="font-bold uppercase mb-10">Create new color window</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} method="POST">
         <div className="grid gap-6 mb-6 md:grid-cols-12">
           <div className="col-span-4">
             <label
               htmlFor="material"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Material Name
+              Material
             </label>
-            <select
+            <input
+              type="text"
               id="material"
               name="material"
               value={material}
@@ -36,22 +67,12 @@ function CreateColorWindow() {
                 setMaterial(e.target.value);
               }}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            >
-              <option selected disabled>
-                Choose a material
-              </option>
-              <option defaultValue="HAMMER II">HAMMER II</option>
-              <option value="VELVET">VELVET</option>
-              <option value="BEYOND">BEYOND</option>
-              <option value="PLATINUM">PLATINUM</option>
-              <option value="ROADTRIP">ROADTRIP</option>
-              <option value="TEASEL">TEASEL</option>
-              <option value="NB VELVET">NB VELVET</option>
-            </select>
+            />
           </div>
+
           <div className="col-span-4">
             <label
-              htmlFor="material"
+              htmlFor="code"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
               Material Code
@@ -144,9 +165,10 @@ function CreateColorWindow() {
               htmlFor="customer"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Customer Name
+              Customer
             </label>
-            <select
+            <input
+              type="text"
               id="customer"
               name="customer"
               value={customer}
@@ -154,15 +176,7 @@ function CreateColorWindow() {
                 setCustomer(e.target.value);
               }}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            >
-              <option selected disabled>
-                Choose a Customer
-              </option>
-              <option value="tsh">TAH SUNG HUNG</option>
-              <option value="pci">POUCHEN INDONESIA</option>
-              <option value="nikomas">NIKOMAS ADIDAS</option>
-              <option value="panarub">PANARUB</option>
-            </select>
+            />
           </div>
         </div>
         <div className="text-right">
