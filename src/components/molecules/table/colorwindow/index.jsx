@@ -5,36 +5,15 @@ import { IconEdit, IconEye, IconTrash } from "@tabler/icons-react";
 
 function Tables() {
   const [colorWindows, setColorWindows] = useState([]);
-  const [handleSearch, setHandleSearch] = useState("");
+  const [searchInput, setSearchInput] = useState("");
+  const [filteredResults, setFilteredResults] = useState([]);
 
-  const buttonAction = () => {
-    return (
-      <div className="flex items-center space-x-4">
-        <form action="/edit" method="post">
-          <button className="px-2 py-2 text-xs rounded">
-            <IconEdit stroke={1} width={20} />
-          </button>
-        </form>
-        <form action="/view" method="post">
-          <button className="px-2 py-2 text-xs rounded">
-            <IconEye stroke={1} width={20} />
-          </button>
-        </form>
-        <form action="/delete" method="post">
-          <button className="px-2 py-2 text-xs rounded">
-            <IconTrash stroke={1} width={20} />
-          </button>
-        </form>
-      </div>
-    );
-  };
-
-  const search = async () => {
+  const getData = async () => {
     try {
-      const response = await axios.get("colorwindow/search", handleSearch);
-      console.log(response.data);
-    } catch (e) {
-      console.log(e);
+      const response = await axios.get("colorwindow");
+      setColorWindows(response.data.data);
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -88,21 +67,47 @@ function Tables() {
     },
   ];
 
-  const getData = async () => {
-    try {
-      const response = await axios.get("colorwindow");
-      setColorWindows(response.data.data);
-    } catch (err) {
-      console.log(err);
+  const buttonAction = () => {
+    return (
+      <div className="flex items-center space-x-4">
+        <form action="/edit" method="post">
+          <button className="px-2 py-2 text-xs rounded">
+            <IconEdit stroke={1} width={20} />
+          </button>
+        </form>
+        <form action="/view" method="post">
+          <button className="px-2 py-2 text-xs rounded">
+            <IconEye stroke={1} width={20} />
+          </button>
+        </form>
+        <form action="/delete" method="post">
+          <button className="px-2 py-2 text-xs rounded">
+            <IconTrash stroke={1} width={20} />
+          </button>
+        </form>
+      </div>
+    );
+  };
+
+  const searchItems = async (searchValue) => {
+    setSearchInput(searchValue);
+    if (searchInput !== "") {
+      const filteredData = colorWindows.filter((item) => {
+        return Object.values(item).join("").toLowerCase().includes(searchInput);
+      });
+      if (filteredData.length > 0) {
+        setFilteredResults(filteredData);
+      } else {
+        setFilteredResults(colorWindows);
+      }
+    } else {
+      setFilteredResults(colorWindows);
     }
   };
 
   useEffect(() => {
     getData();
-    search();
-    console.log(handleSearch);
-    console.log();
-  }, [handleSearch]);
+  }, [searchInput]);
 
   return (
     <div>
@@ -130,11 +135,13 @@ function Tables() {
 
                 <input
                   type="text"
-                  id="table-search"
+                  name="search"
                   className="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Search for items"
-                  value={handleSearch}
-                  onChange={(e) => setHandleSearch(e.target.value)}
+                  value={searchInput}
+                  onChange={(e) => {
+                    searchItems(e.target.value);
+                  }}
                 />
               </div>
               <a
@@ -147,7 +154,7 @@ function Tables() {
           </div>
         }
         columns={columns}
-        data={colorWindows}
+        data={filteredResults != "" ? filteredResults : colorWindows}
         fixedHeader={true}
         fixedHeaderScrollHeight="420px"
         pagination
