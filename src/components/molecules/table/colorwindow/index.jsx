@@ -89,24 +89,22 @@ function Tables() {
     );
   };
 
-  const searchItems = async (searchValue) => {
-    setSearchInput(searchValue);
+  const handleInputChange = () => {
     if (searchInput !== "") {
       const filteredData = colorWindows.filter((item) => {
-        return Object.values(item).join("").toLowerCase().includes(searchInput);
+        return Object.values(item)
+          .join("")
+          .toLowerCase()
+          .includes(searchInput.toLowerCase());
       });
-      if (filteredData.length > 0) {
-        setFilteredResults(filteredData);
-      } else {
-        setFilteredResults(colorWindows);
-      }
-    } else {
-      setFilteredResults(colorWindows);
+      setFilteredResults(filteredData);
     }
   };
 
   useEffect(() => {
     getData();
+    handleInputChange();
+    console.log(`filter result:`, filteredResults);
   }, [searchInput]);
 
   return (
@@ -140,7 +138,7 @@ function Tables() {
                   placeholder="Search for items"
                   value={searchInput}
                   onChange={(e) => {
-                    searchItems(e.target.value);
+                    setSearchInput(e.target.value);
                   }}
                 />
               </div>
@@ -154,7 +152,7 @@ function Tables() {
           </div>
         }
         columns={columns}
-        data={filteredResults != "" ? filteredResults : colorWindows}
+        data={searchInput != "" ? filteredResults : colorWindows}
         fixedHeader={true}
         fixedHeaderScrollHeight="420px"
         pagination
