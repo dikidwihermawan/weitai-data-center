@@ -2,11 +2,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { IconEdit, IconEye, IconTrash } from "@tabler/icons-react";
+import Modal from "./modal";
 
 function Tables() {
   const [colorWindows, setColorWindows] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
+  const [status, setStatus] = useState([]);
 
   const getData = async () => {
     try {
@@ -67,24 +69,42 @@ function Tables() {
     },
   ];
 
-  const buttonAction = () => {
+  const buttonAction = (id) => {
     return (
       <div className="flex items-center space-x-4">
-        <form action="/edit" method="post">
-          <button className="px-2 py-2 text-xs rounded">
-            <IconEdit stroke={1} width={20} />
-          </button>
-        </form>
-        <form action="/view" method="post">
-          <button className="px-2 py-2 text-xs rounded">
-            <IconEye stroke={1} width={20} />
-          </button>
-        </form>
-        <form action="/delete" method="post">
-          <button className="px-2 py-2 text-xs rounded">
-            <IconTrash stroke={1} width={20} />
-          </button>
-        </form>
+        <button
+          className="px-2 py-2 text-xs rounded"
+          onClick={(e) => {
+            setStatus({
+              data: id,
+              action: "edit",
+            });
+          }}
+        >
+          <IconEdit stroke={1} width={20} />
+        </button>
+        <button
+          className="px-2 py-2 text-xs rounded"
+          onClick={(e) => {
+            setStatus({
+              data: id,
+              action: "view",
+            });
+          }}
+        >
+          <IconEye stroke={1} width={20} />
+        </button>
+        <button
+          className="px-2 py-2 text-xs rounded"
+          onClick={(e) => {
+            setStatus({
+              data: id,
+              action: "delete",
+            });
+          }}
+        >
+          <IconTrash stroke={1} width={20} />
+        </button>
       </div>
     );
   };
@@ -104,8 +124,7 @@ function Tables() {
   useEffect(() => {
     getData();
     handleInputChange();
-    console.log(`filter result:`, filteredResults);
-  }, [searchInput]);
+  }, [searchInput, status]);
 
   return (
     <div>
@@ -160,6 +179,7 @@ function Tables() {
         striped
         pointerOnHover
       />
+      <Modal initialState={status.action} initialValue={status.data} />
     </div>
   );
 }
