@@ -2,13 +2,24 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { IconEdit, IconEye, IconTrash } from "@tabler/icons-react";
-import Modal from "./modal";
+import CreateModal from "./modal/create";
+import EditModal from "./modal/edit";
+import ViewModal from "./modal/view";
 
 function Tables() {
   const [colorWindows, setColorWindows] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
-  const [status, setStatus] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [isValue, setIsValue] = useState([]);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   const getData = async () => {
     try {
@@ -74,35 +85,29 @@ function Tables() {
       <div className="flex items-center space-x-4">
         <button
           className="px-2 py-2 text-xs rounded"
-          onClick={(e) => {
-            setStatus({
-              data: id,
-              action: "edit",
-            });
+          onClick={() => {
+            openModal(),
+              setIsValue({
+                status: "edit",
+                id: id,
+              });
           }}
         >
           <IconEdit stroke={1} width={20} />
         </button>
         <button
           className="px-2 py-2 text-xs rounded"
-          onClick={(e) => {
-            setStatus({
-              data: id,
-              action: "view",
-            });
+          onClick={() => {
+            openModal(),
+              setIsValue({
+                status: "view",
+                id: id,
+              });
           }}
         >
           <IconEye stroke={1} width={20} />
         </button>
-        <button
-          className="px-2 py-2 text-xs rounded"
-          onClick={(e) => {
-            setStatus({
-              data: id,
-              action: "delete",
-            });
-          }}
-        >
+        <button className="px-2 py-2 text-xs rounded">
           <IconTrash stroke={1} width={20} />
         </button>
       </div>
@@ -124,7 +129,7 @@ function Tables() {
   useEffect(() => {
     getData();
     handleInputChange();
-  }, [searchInput, status]);
+  }, [searchInput]);
 
   return (
     <div>
@@ -161,12 +166,18 @@ function Tables() {
                   }}
                 />
               </div>
-              <a
-                href="/colorwindow/create"
+              <button
+                // href="/colorwindow/create"
+                onClick={() => {
+                  openModal(),
+                    setIsValue({
+                      status: "create",
+                    });
+                }}
                 className="px-4 py-2 rounded text-sm text-white bg-green-600"
               >
                 Create New Sample
-              </a>
+              </button>
             </div>
           </div>
         }
@@ -179,7 +190,13 @@ function Tables() {
         striped
         pointerOnHover
       />
-      <Modal initialState={status.action} initialValue={status.data} />
+      {isValue.status == "create" ? (
+        <CreateModal isOpen={modalOpen} onClose={closeModal} />
+      ) : isValue.status == "edit" ? (
+        <EditModal isOpen={modalOpen} onClose={closeModal} isValue={isValue} />
+      ) : (
+        <ViewModal isOpen={modalOpen} onClose={closeModal} isValue={isValue} />
+      )}
     </div>
   );
 }
