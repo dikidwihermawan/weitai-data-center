@@ -2,7 +2,7 @@ import { Tables } from "../../components/molecules";
 
 function Home() {
   return (
-    <div className="mx-10">
+    <div className="">
       <div>
         <h2>Hello world</h2>
       </div>

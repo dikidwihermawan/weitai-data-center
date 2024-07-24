@@ -132,7 +132,7 @@ function Tables() {
   }, [searchInput]);
 
   return (
-    <div>
+    <>
       <DataTable
         title={
           <div className="flex items-center justify-between">
@@ -184,7 +184,7 @@ function Tables() {
         columns={columns}
         data={searchInput != "" ? filteredResults : colorWindows}
         fixedHeader={true}
-        fixedHeaderScrollHeight="420px"
+        fixedHeaderScrollHeight="440px"
         pagination
         responsive
         striped
@@ -197,7 +197,7 @@ function Tables() {
       ) : (
         <ViewModal isOpen={modalOpen} onClose={closeModal} isValue={isValue} />
       )}
-    </div>
+    </>
   );
 }
 

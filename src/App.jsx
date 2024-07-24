@@ -1,5 +1,5 @@
 import Router from "./routes";
-import Layout from "./components/layouts";
+import Layout from "./layouts";
 
 function App() {
   return (
