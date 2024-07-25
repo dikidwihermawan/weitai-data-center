@@ -1,11 +1,12 @@
 import Router from "./routes";
-import Layout from "./layouts";
+import Navbar from "./header";
 
 function App() {
   return (
-    <Layout>
+    <div className="mx-12">
+      <Navbar />
       <Router />
-    </Layout>
+    </div>
   );
 }
 

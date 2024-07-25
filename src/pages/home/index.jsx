@@ -1,5 +1,3 @@
-import { Tables } from "../../components/molecules";
-
 function Home() {
   return (
     <div className="">
