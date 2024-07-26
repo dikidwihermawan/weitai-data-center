@@ -3,9 +3,8 @@ import swal from "sweetalert";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function CreateColorWindow() {
+function EditColorWindow() {
   const redirect = useNavigate();
-  const [errors, setErrors] = useState([]);
 
   const [customer, setCustomer] = useState("");
   const [material, setMaterial] = useState("");
@@ -21,24 +20,22 @@ function CreateColorWindow() {
     e.preventDefault();
     swal({
       title: "Are you sure?",
-      text: "Do you want to add data?",
+      text: "Do you want to edit data?",
       icon: "info",
       buttons: true,
       dangerMode: false,
     }).then(async (willDelete) => {
       if (willDelete) {
         try {
-          const response = await axios.post("/colorwindow/create", data);
+          const response = await axios.post("/colorwindow/edit", data);
           swal(response.data.success, {
             icon: "success",
           });
           redirect("/colorwindow");
         } catch (e) {
-          console.log(e.response.data.data[0].msg);
           swal("You must fill in any fields", {
             icon: "error",
           });
-          setErrors(e);
         }
       }
     });
@@ -159,7 +156,6 @@ function CreateColorWindow() {
                 type="number"
                 id="qty"
                 name="qty"
-                min={1}
                 value={qty}
                 onChange={(e) => {
                   setQty(e.target.value);
@@ -200,4 +196,4 @@ function CreateColorWindow() {
   );
 }
 
-export default CreateColorWindow;
+export default EditColorWindow;
