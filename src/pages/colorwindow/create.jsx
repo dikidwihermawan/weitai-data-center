@@ -17,6 +17,8 @@ function CreateColorWindow() {
 
   const data = { customer, material, code, color, date, csdate, qty };
 
+  console.log(errors[0]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     swal({
@@ -34,11 +36,16 @@ function CreateColorWindow() {
           });
           redirect("/colorwindow");
         } catch (e) {
-          console.log(e.response.data.data[0].msg);
+          const array = [];
+          const newArray = e.response.data.data.map((error) => {
+            return (array = [error]);
+          });
+
+          setErrors(array);
+
           swal("You must fill in any fields", {
             icon: "error",
           });
-          setErrors(e);
         }
       }
     });
