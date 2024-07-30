@@ -17,8 +17,6 @@ function CreateColorWindow() {
 
   const data = { customer, material, code, color, date, csdate, qty };
 
-  console.log(errors[0]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     swal({
@@ -36,13 +34,8 @@ function CreateColorWindow() {
           });
           redirect("/colorwindow");
         } catch (e) {
-          const array = [];
-          const newArray = e.response.data.data.map((error) => {
-            return (array = [error]);
-          });
-
-          setErrors(array);
-
+          console.log(e.response.data.data);
+          setErrors(e.response.data.data);
           swal("You must fill in any fields", {
             icon: "error",
           });
@@ -81,6 +74,11 @@ function CreateColorWindow() {
                 }}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500"
               />
+              {errors.length > 0 && errors[0].path == "material" ? (
+                <span className="text-red-600 text-xs">{errors[0].msg}</span>
+              ) : (
+                ""
+              )}
             </div>
 
             <div className="col-span-4">
@@ -100,6 +98,11 @@ function CreateColorWindow() {
                 }}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500"
               />
+              {errors.length > 0 && errors[0].path == "code" ? (
+                <span className="text-red-600 text-xs">{errors[0].msg}</span>
+              ) : (
+                ""
+              )}
             </div>
             <div className="col-span-4">
               <label
@@ -118,6 +121,11 @@ function CreateColorWindow() {
                 }}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500"
               />
+              {errors.length > 0 && errors[0].path == "color" ? (
+                <span className="text-red-600 text-xs">{errors[0].msg}</span>
+              ) : (
+                ""
+              )}
             </div>
             <div className="col-span-3">
               <label
@@ -136,6 +144,11 @@ function CreateColorWindow() {
                 }}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500"
               />
+              {errors.length > 0 && errors[0].path == "date" ? (
+                <span className="text-red-600 text-xs">{errors[0].msg}</span>
+              ) : (
+                ""
+              )}
             </div>
             <div className="col-span-3">
               <label
@@ -163,7 +176,7 @@ function CreateColorWindow() {
                 Quantity
               </label>
               <input
-                type="number"
+                type="text"
                 id="qty"
                 name="qty"
                 min={1}
@@ -173,6 +186,11 @@ function CreateColorWindow() {
                 }}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500"
               />
+              {errors.length > 0 && errors[0].path == "qty" ? (
+                <span className="text-red-600 text-xs">{errors[0].msg}</span>
+              ) : (
+                ""
+              )}
             </div>
             <div className="col-span-3">
               <label
@@ -191,6 +209,11 @@ function CreateColorWindow() {
                 }}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500"
               />
+              {errors.length > 0 && errors[0].path == "customer" ? (
+                <span className="text-red-600 text-xs">{errors[0].msg}</span>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>
