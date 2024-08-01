@@ -34,8 +34,12 @@ function CreateColorWindow() {
           });
           redirect("/colorwindow");
         } catch (e) {
-          console.log(e.response.data.data);
-          setErrors(e.response.data.data);
+          let data = e.response.data.data;
+          let arrayBuffer = [];
+          data.forEach((element) => {
+            arrayBuffer[element.path] = element.msg;
+          });
+          setErrors(arrayBuffer);
           swal("You must fill in any fields", {
             icon: "error",
           });
@@ -72,13 +76,13 @@ function CreateColorWindow() {
                 onChange={(e) => {
                   setMaterial(e.target.value);
                 }}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500"
+                className={`bg-gray-50 border ${
+                  errors.material ? "border-red-600" : "border-gray-300"
+                } text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
               />
-              {errors.length > 0 && errors[0].path == "material" ? (
-                <span className="text-red-600 text-xs">{errors[0].msg}</span>
-              ) : (
-                ""
-              )}
+              {errors.material ? (
+                <span className="text-red-600 text-xs">{errors.material}</span>
+              ) : null}
             </div>
 
             <div className="col-span-4">
@@ -96,13 +100,13 @@ function CreateColorWindow() {
                 onChange={(e) => {
                   setCode(e.target.value);
                 }}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500"
+                className={`bg-gray-50 border ${
+                  errors.code ? "border-red-600" : "border-gray-300"
+                } text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
               />
-              {errors.length > 0 && errors[0].path == "code" ? (
-                <span className="text-red-600 text-xs">{errors[0].msg}</span>
-              ) : (
-                ""
-              )}
+              {errors.code ? (
+                <span className="text-red-600 text-xs">{errors.code}</span>
+              ) : null}
             </div>
             <div className="col-span-4">
               <label
@@ -119,13 +123,13 @@ function CreateColorWindow() {
                 onChange={(e) => {
                   setColor(e.target.value);
                 }}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500"
+                className={`bg-gray-50 border ${
+                  errors.color ? "border-red-600" : "border-gray-300"
+                } text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
               />
-              {errors.length > 0 && errors[0].path == "color" ? (
-                <span className="text-red-600 text-xs">{errors[0].msg}</span>
-              ) : (
-                ""
-              )}
+              {errors.color ? (
+                <span className="text-red-600 text-xs">{errors.color}</span>
+              ) : null}
             </div>
             <div className="col-span-3">
               <label
@@ -142,13 +146,13 @@ function CreateColorWindow() {
                 onChange={(e) => {
                   setDate(e.target.value);
                 }}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500"
+                className={`bg-gray-50 border ${
+                  errors.date ? "border-red-600" : "border-gray-300"
+                } text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
               />
-              {errors.length > 0 && errors[0].path == "date" ? (
-                <span className="text-red-600 text-xs">{errors[0].msg}</span>
-              ) : (
-                ""
-              )}
+              {errors.date ? (
+                <span className="text-red-600 text-xs">{errors.date}</span>
+              ) : null}
             </div>
             <div className="col-span-3">
               <label
@@ -165,7 +169,7 @@ function CreateColorWindow() {
                 onChange={(e) => {
                   setCsDate(e.target.value);
                 }}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500"
+                className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
               />
             </div>
             <div className="col-span-3">
@@ -184,13 +188,13 @@ function CreateColorWindow() {
                 onChange={(e) => {
                   setQty(e.target.value);
                 }}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500"
+                className={`bg-gray-50 border ${
+                  errors.qty ? "border-red-600" : "border-gray-300"
+                } text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
               />
-              {errors.length > 0 && errors[0].path == "qty" ? (
-                <span className="text-red-600 text-xs">{errors[0].msg}</span>
-              ) : (
-                ""
-              )}
+              {errors.qty ? (
+                <span className="text-red-600 text-xs">{errors.qty}</span>
+              ) : null}
             </div>
             <div className="col-span-3">
               <label
@@ -207,13 +211,13 @@ function CreateColorWindow() {
                 onChange={(e) => {
                   setCustomer(e.target.value);
                 }}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500"
+                className={`bg-gray-50 border ${
+                  errors.customer ? "border-red-600" : "border-gray-300"
+                } text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
               />
-              {errors.length > 0 && errors[0].path == "customer" ? (
-                <span className="text-red-600 text-xs">{errors[0].msg}</span>
-              ) : (
-                ""
-              )}
+              {errors.customer ? (
+                <span className="text-red-600 text-xs">{errors.customer}</span>
+              ) : null}
             </div>
           </div>
         </div>

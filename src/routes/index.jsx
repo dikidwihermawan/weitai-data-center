@@ -11,7 +11,7 @@ export default function Router() {
         <Route exact path="/" act element={<Home />} />
         <Route path="colorwindow" element={<ColorWindow />} />
         <Route path="colorwindow/create" element={<CreateColorWindow />} />
-        <Route path="colorwindow/edit" element={<EditColorWindow />} />
+        <Route path="colorwindow/edit/:id" element={<EditColorWindow />} />
       </Routes>
     </div>
   );

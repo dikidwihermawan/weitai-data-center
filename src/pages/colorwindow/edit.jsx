@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import swal from "sweetalert";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -15,6 +15,11 @@ function EditColorWindow() {
   const [qty, setQty] = useState("");
 
   const data = { customer, material, code, color, date, csdate, qty };
+
+  const getData = async () => {
+    const response = await axios.get("colorwindow/edit");
+    console.log(response.data);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,10 +45,14 @@ function EditColorWindow() {
       }
     });
   };
+
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <div className="max-w-screen-xl mx-auto">
       <div className="p-4 flex items-center justify-between">
-        <h1 className="text-xl font-semibold">Create Color Window</h1>
+        <h1 className="text-xl font-semibold">Edit Color Window</h1>
         <Link
           to="/colorwindow"
           className="px-4 py-2 rounded text-sm text-white bg-green-600"

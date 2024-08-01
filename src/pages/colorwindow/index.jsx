@@ -2,9 +2,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { IconEdit, IconEye, IconTrash } from "@tabler/icons-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function ColorWindow() {
+  const redirect = useNavigate();
   const [colorWindows, setColorWindows] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
@@ -15,6 +16,16 @@ function ColorWindow() {
       setColorWindows(response.data.data);
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const handleClick = (id, action) => {
+    if (action == "edit") {
+      redirect(`edit/${id}`);
+    } else if (action == "view") {
+      redirect(`view/${id}`);
+    } else if (action == "delete") {
+      redirect(`delete/${id}`);
     }
   };
 
@@ -68,16 +79,25 @@ function ColorWindow() {
     },
   ];
 
-  const buttonAction = () => {
+  const buttonAction = (id) => {
     return (
       <div className="flex items-center space-x-4">
-        <button className="px-2 py-2 text-xs rounded">
+        <button
+          onClick={() => handleClick(id, "edit")}
+          className="px-2 py-2 text-xs rounded"
+        >
           <IconEdit stroke={1} width={20} />
         </button>
-        <button className="px-2 py-2 text-xs rounded">
+        <button
+          onClick={() => handleClick(id, "view")}
+          className="px-2 py-2 text-xs rounded"
+        >
           <IconEye stroke={1} width={20} />
         </button>
-        <button className="px-2 py-2 text-xs rounded">
+        <button
+          onClick={() => handleClick(id, "delete")}
+          className="px-2 py-2 text-xs rounded"
+        >
           <IconTrash stroke={1} width={20} />
         </button>
       </div>
