@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import swal from "sweetalert";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import moment from "moment";
 
 function EditColorWindow() {
+  const params = useParams();
+
   const redirect = useNavigate();
 
+  const [colorWindow, setColorWindow] = useState([]);
+  const [errors, setErrors] = useState([]);
   const [customer, setCustomer] = useState("");
   const [material, setMaterial] = useState("");
   const [code, setCode] = useState("");
@@ -17,27 +22,33 @@ function EditColorWindow() {
   const data = { customer, material, code, color, date, csdate, qty };
 
   const getData = async () => {
-    const response = await axios.get("colorwindow/edit");
-    console.log(response.data);
+    const response = await axios.get(`colorwindow/edit/${params.id}`);
+    setColorWindow(response.data.data);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     swal({
       title: "Are you sure?",
-      text: "Do you want to edit data?",
+      text: "Do you want to update data?",
       icon: "info",
       buttons: true,
       dangerMode: false,
     }).then(async (willDelete) => {
       if (willDelete) {
         try {
-          const response = await axios.post("/colorwindow/edit", data);
+          const response = await axios.post("/colorwindow/update", data);
           swal(response.data.success, {
             icon: "success",
           });
           redirect("/colorwindow");
         } catch (e) {
+          let data = e.response.data.data;
+          let arrayBuffer = [];
+          data.forEach((element) => {
+            arrayBuffer[element.path] = element.msg;
+          });
+          setErrors(arrayBuffer);
           swal("You must fill in any fields", {
             icon: "error",
           });
@@ -74,12 +85,17 @@ function EditColorWindow() {
                 type="text"
                 id="material"
                 name="material"
-                value={material}
+                value={colorWindow.material || ""}
                 onChange={(e) => {
                   setMaterial(e.target.value);
                 }}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500"
+                className={`bg-gray-50 border ${
+                  errors.material ? "border-red-600" : "border-gray-300"
+                } text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
               />
+              {errors.material ? (
+                <span className="text-red-600 text-xs">{errors.material}</span>
+              ) : null}
             </div>
 
             <div className="col-span-4">
@@ -93,12 +109,17 @@ function EditColorWindow() {
                 type="text"
                 id="code"
                 name="code"
-                value={code}
+                value={colorWindow.code || ""}
                 onChange={(e) => {
                   setCode(e.target.value);
                 }}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500"
+                className={`bg-gray-50 border ${
+                  errors.code ? "border-red-600" : "border-gray-300"
+                } text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
               />
+              {errors.code ? (
+                <span className="text-red-600 text-xs">{errors.code}</span>
+              ) : null}
             </div>
             <div className="col-span-4">
               <label
@@ -111,12 +132,17 @@ function EditColorWindow() {
                 type="text"
                 id="color"
                 name="color"
-                value={color}
+                value={colorWindow.color || ""}
                 onChange={(e) => {
                   setColor(e.target.value);
                 }}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500"
+                className={`bg-gray-50 border ${
+                  errors.color ? "border-red-600" : "border-gray-300"
+                } text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
               />
+              {errors.color ? (
+                <span className="text-red-600 text-xs">{errors.color}</span>
+              ) : null}
             </div>
             <div className="col-span-3">
               <label
@@ -129,12 +155,17 @@ function EditColorWindow() {
                 type="date"
                 id="date"
                 name="date"
-                value={date}
+                value={colorWindow.date || ""}
                 onChange={(e) => {
                   setDate(e.target.value);
                 }}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500"
+                className={`bg-gray-50 border ${
+                  errors.date ? "border-red-600" : "border-gray-300"
+                } text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
               />
+              {errors.date ? (
+                <span className="text-red-600 text-xs">{errors.date}</span>
+              ) : null}
             </div>
             <div className="col-span-3">
               <label
@@ -147,11 +178,11 @@ function EditColorWindow() {
                 type="date"
                 id="csdate"
                 name="csdate"
-                value={csdate}
+                value={colorWindow.csdate || ""}
                 onChange={(e) => {
                   setCsDate(e.target.value);
                 }}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500"
+                className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
               />
             </div>
             <div className="col-span-3">
@@ -162,15 +193,21 @@ function EditColorWindow() {
                 Quantity
               </label>
               <input
-                type="number"
+                type="text"
                 id="qty"
                 name="qty"
-                value={qty}
+                min={1}
+                value={colorWindow.qty || ""}
                 onChange={(e) => {
                   setQty(e.target.value);
                 }}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500"
+                className={`bg-gray-50 border ${
+                  errors.qty ? "border-red-600" : "border-gray-300"
+                } text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
               />
+              {errors.qty ? (
+                <span className="text-red-600 text-xs">{errors.qty}</span>
+              ) : null}
             </div>
             <div className="col-span-3">
               <label
@@ -183,12 +220,17 @@ function EditColorWindow() {
                 type="text"
                 id="customer"
                 name="customer"
-                value={customer}
+                value={colorWindow.customer || ""}
                 onChange={(e) => {
                   setCustomer(e.target.value);
                 }}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500"
+                className={`bg-gray-50 border ${
+                  errors.customer ? "border-red-600" : "border-gray-300"
+                } text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
               />
+              {errors.customer ? (
+                <span className="text-red-600 text-xs">{errors.customer}</span>
+              ) : null}
             </div>
           </div>
         </div>
