@@ -63,29 +63,108 @@ function CreateColorWindow() {
           <div className="grid gap-6 mb-6 md:grid-cols-12">
             <div className="col-span-4">
               <label
+                htmlFor="customer"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Customer
+              </label>
+              <select
+                onChange={(e) => {
+                  setCustomer(e.target.value);
+                }}
+                name="customer"
+                value={customer}
+                id="customer"
+                className={`bg-gray-50 border ${
+                  errors.customer ? "border-red-600" : "border-gray-300"
+                } text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
+              >
+                <option value="" selected disabled>
+                  PILIH CUSTOMER
+                </option>
+                <option selected value="TAH SUNG HUNG">
+                  TAH SUNG HUNG
+                </option>
+                <option value="ADIS DIMENSION FOOTWEAR">
+                  ADIS DIMENSION FOOTWEAR
+                </option>
+                <option value="NIKOMAS ADIDAS">NIKOMAS ADIDAS</option>
+                <option value="POUCHEN INDONESIA">POUCHEN INDONESIA</option>
+                <option value="SEJIN FASHION INDONESIA">
+                  SEJIN FASHION INDONESIA
+                </option>
+                <option value="PARKLAND WORLD INDONESIA I">
+                  PARKLAND WORLD INDONESIA I
+                </option>
+                <option value="PARKLAND WORLD INDONESIA II">
+                  PARKLAND WORLD INDONESIA II
+                </option>
+                <option value="PUMA">PUMA</option>
+              </select>
+              {errors.customer ? (
+                <span className="text-red-600 text-xs">{errors.customer}</span>
+              ) : null}
+            </div>
+            <div className="col-span-4">
+              <label
                 htmlFor="material"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Material
               </label>
-              <input
-                type="text"
-                id="material"
-                name="material"
-                value={material}
+              <select
                 onChange={(e) => {
                   setMaterial(e.target.value);
                 }}
+                name="material"
+                value={material}
+                id="material"
                 className={`bg-gray-50 border ${
                   errors.material ? "border-red-600" : "border-gray-300"
                 } text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
-              />
+              >
+                <option value="" selected disabled>
+                  PILIH MATERIAL
+                </option>
+                <option value="HAMMER II">HAMMER II</option>
+                <option value="VELVET">VELVET</option>
+                <option value="BEYOND">BEYOND</option>
+                <option value="ROADTRIP">ROADTRIP</option>
+                <option value="PLATINUM">PLATINUM</option>
+                <option value="VINTAGE">VINTAGE</option>
+                <option value="NB VELVET">NB VELVET</option>
+                <option value="PUMA">PUMA</option>
+              </select>
+
               {errors.material ? (
                 <span className="text-red-600 text-xs">{errors.material}</span>
               ) : null}
             </div>
-
             <div className="col-span-4">
+              <label
+                htmlFor="qty"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Quantity
+              </label>
+              <input
+                type="text"
+                id="qty"
+                name="qty"
+                min={1}
+                value={qty}
+                onChange={(e) => {
+                  setQty(e.target.value);
+                }}
+                className={`bg-gray-50 border ${
+                  errors.qty ? "border-red-600" : "border-gray-300"
+                } text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
+              />
+              {errors.qty ? (
+                <span className="text-red-600 text-xs">{errors.qty}</span>
+              ) : null}
+            </div>
+            <div className="col-span-3">
               <label
                 htmlFor="code"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -108,7 +187,7 @@ function CreateColorWindow() {
                 <span className="text-red-600 text-xs">{errors.code}</span>
               ) : null}
             </div>
-            <div className="col-span-4">
+            <div className="col-span-3">
               <label
                 htmlFor="color"
                 className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -171,53 +250,6 @@ function CreateColorWindow() {
                 }}
                 className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
               />
-            </div>
-            <div className="col-span-3">
-              <label
-                htmlFor="qty"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Quantity
-              </label>
-              <input
-                type="text"
-                id="qty"
-                name="qty"
-                min={1}
-                value={qty}
-                onChange={(e) => {
-                  setQty(e.target.value);
-                }}
-                className={`bg-gray-50 border ${
-                  errors.qty ? "border-red-600" : "border-gray-300"
-                } text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
-              />
-              {errors.qty ? (
-                <span className="text-red-600 text-xs">{errors.qty}</span>
-              ) : null}
-            </div>
-            <div className="col-span-3">
-              <label
-                htmlFor="customer"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Customer
-              </label>
-              <input
-                type="text"
-                id="customer"
-                name="customer"
-                value={customer}
-                onChange={(e) => {
-                  setCustomer(e.target.value);
-                }}
-                className={`bg-gray-50 border ${
-                  errors.customer ? "border-red-600" : "border-gray-300"
-                } text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
-              />
-              {errors.customer ? (
-                <span className="text-red-600 text-xs">{errors.customer}</span>
-              ) : null}
             </div>
           </div>
         </div>

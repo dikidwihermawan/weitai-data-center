@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { IconEdit, IconEye, IconTrash } from "@tabler/icons-react";
 import { Link, useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 
 function ColorWindow() {
   const redirect = useNavigate();
@@ -19,13 +20,46 @@ function ColorWindow() {
     }
   };
 
+  const deleteData = () => {
+    e.preventDefault();
+    swal({
+      title: "Are you sure?",
+      text: "Do you want to delete data?",
+      icon: "info",
+      buttons: true,
+      dangerMode: false,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        try {
+          console.log(id);
+          // const response = await axios.delete(
+          //   `colorwindow/delete/${params.id}`,
+          //   id
+          // );
+          // swal(response.data.success, {
+          //   icon: "success",
+          // });
+          // redirect("/colorwindow");
+        } catch (e) {
+          let data = e.response.data.data;
+          let arrayBuffer = [];
+          data.forEach((element) => {
+            arrayBuffer[element.path] = element.msg;
+          });
+          setErrors(arrayBuffer);
+          swal("You must fill in any fields", {
+            icon: "error",
+          });
+        }
+      }
+    });
+  };
+
   const handleClick = (id, action) => {
     if (action == "edit") {
       redirect(`edit/${id}`);
     } else if (action == "view") {
       redirect(`view/${id}`);
-    } else if (action == "delete") {
-      redirect(`delete/${id}`);
     }
   };
 
@@ -94,12 +128,11 @@ function ColorWindow() {
         >
           <IconEye stroke={1} width={20} />
         </button>
-        <button
-          onClick={() => handleClick(id, "delete")}
-          className="px-2 py-2 text-xs rounded"
-        >
-          <IconTrash stroke={1} width={20} />
-        </button>
+        <form onSubmit={deleteData} method="post">
+          <button type="submit" className="px-2 py-2 text-xs rounded">
+            <IconTrash stroke={1} width={20} />
+          </button>
+        </form>
       </div>
     );
   };
