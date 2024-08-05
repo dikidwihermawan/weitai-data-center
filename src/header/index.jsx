@@ -70,7 +70,7 @@ function Navbar() {
                 <Link
                   to="colorwindow"
                   className={`${
-                    pathname === "/colorwindow" ||
+                    pathname == "/colorwindow" ||
                     "/colorwindow/edit" ||
                     "/colorwindow/forward"
                       ? "text-blue-600"
