@@ -148,10 +148,13 @@ function CreateColorWindow() {
                 Quantity
               </label>
               <input
-                type="text"
+                autoComplete="off"
+                type="number"
                 id="qty"
                 name="qty"
                 min={1}
+                max={30}
+                placeholder="Min 1"
                 value={qty}
                 onChange={(e) => {
                   setQty(e.target.value);

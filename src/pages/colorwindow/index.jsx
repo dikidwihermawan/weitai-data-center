@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import { IconEdit, IconEye, IconTrash } from "@tabler/icons-react";
+import { IconEdit, IconTransferOut, IconTrash } from "@tabler/icons-react";
 import { Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 
@@ -20,8 +20,7 @@ function ColorWindow() {
     }
   };
 
-  const deleteData = () => {
-    e.preventDefault();
+  const deleteData = (id) => {
     swal({
       title: "Are you sure?",
       text: "Do you want to delete data?",
@@ -31,25 +30,16 @@ function ColorWindow() {
     }).then(async (willDelete) => {
       if (willDelete) {
         try {
-          console.log(id);
-          // const response = await axios.delete(
-          //   `colorwindow/delete/${params.id}`,
-          //   id
-          // );
-          // swal(response.data.success, {
-          //   icon: "success",
-          // });
-          // redirect("/colorwindow");
-        } catch (e) {
-          let data = e.response.data.data;
-          let arrayBuffer = [];
-          data.forEach((element) => {
-            arrayBuffer[element.path] = element.msg;
+          const response = await axios.delete(`colorwindow/delete/${id}`);
+          swal(response.data.success, {
+            icon: "success",
           });
-          setErrors(arrayBuffer);
-          swal("You must fill in any fields", {
+          getData();
+        } catch (e) {
+          swal("Data can't deleted!", {
             icon: "error",
           });
+          console.log(e);
         }
       }
     });
@@ -59,7 +49,9 @@ function ColorWindow() {
     if (action == "edit") {
       redirect(`edit/${id}`);
     } else if (action == "view") {
-      redirect(`view/${id}`);
+      redirect(`forward/${id}`);
+    } else if (action == "delete") {
+      deleteData(id);
     }
   };
 
@@ -119,20 +111,24 @@ function ColorWindow() {
         <button
           onClick={() => handleClick(id, "edit")}
           className="px-2 py-2 text-xs rounded"
+          title="Edit"
         >
           <IconEdit stroke={1} width={20} />
         </button>
         <button
           onClick={() => handleClick(id, "view")}
           className="px-2 py-2 text-xs rounded"
+          title="Pinjamkan"
         >
-          <IconEye stroke={1} width={20} />
+          <IconTransferOut stroke={1} width={20} />
         </button>
-        <form onSubmit={deleteData} method="post">
-          <button type="submit" className="px-2 py-2 text-xs rounded">
-            <IconTrash stroke={1} width={20} />
-          </button>
-        </form>
+        <button
+          onClick={() => handleClick(id, "delete")}
+          className="px-2 py-2 text-xs rounded"
+          title="Hapus"
+        >
+          <IconTrash stroke={1} width={20} />
+        </button>
       </div>
     );
   };
