@@ -59,7 +59,6 @@ function ForwardedToColorWindow() {
 
   useEffect(() => {
     getData();
-    console.log(datas.color);
   }, []);
   return (
     <div className="max-w-screen-xl mx-auto">
@@ -73,6 +72,40 @@ function ForwardedToColorWindow() {
         </Link>
       </div>
       <div className="px-4 space-y-4">
+        <div className="grid grid-cols-3 gap-3 p-4">
+          <div className="col-span-2">
+            <label
+              htmlFor="data_target"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Color Window yang ingin dikirim
+            </label>
+            <input
+              type="text"
+              disabled
+              id="data_target"
+              name="data_target"
+              value={`${datas.customer} - ${datas.material} (${datas.code}) ${datas.color}`}
+              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
+            />
+          </div>
+          <div className="col-span-1">
+            <label
+              htmlFor="data_target"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Total Quantity
+            </label>
+            <input
+              type="text"
+              disabled
+              id="data_target"
+              name="data_target"
+              value={`${datas.qty}`}
+              className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
+            />
+          </div>
+        </div>
         <form onSubmit={handleSubmit} method="POST">
           <div className="px-4 space-y-4">
             <div className="grid gap-6 mb-6 md:grid-cols-12">
@@ -227,120 +260,6 @@ function ForwardedToColorWindow() {
             </button>
           </div>
         </form>
-        <div className="pb-16">
-          <h1 className="text-xl font-semibold text-center py-4">
-            Data yang ingin dikirim
-          </h1>
-          <div className="grid gap-6 mb-6 md:grid-cols-12">
-            <div className="col-span-4">
-              <label
-                htmlFor="customer"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Customer
-              </label>
-              <input
-                type="text"
-                value={datas.customer}
-                id="customer"
-                disabled
-                className={`bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
-              />
-            </div>
-            <div className="col-span-4">
-              <label
-                htmlFor="material"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Material
-              </label>
-              <input
-                type="text"
-                disabled
-                value={datas.material}
-                id="material"
-                className={`bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
-              />
-            </div>
-            <div className="col-span-4">
-              <label
-                htmlFor="qty"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Quantity
-              </label>
-              <input
-                disabled
-                type="text"
-                id="qty"
-                min={1}
-                max={30}
-                value={datas.qty}
-                className={`bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
-              />
-            </div>
-            <div className="col-span-3">
-              <label
-                htmlFor="code"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Material Code
-              </label>
-              <input
-                disabled
-                type="text"
-                id="code"
-                value={datas.code}
-                className={`bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
-              />
-            </div>
-            <div className="col-span-3">
-              <label
-                htmlFor="color"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Color
-              </label>
-              <input
-                disabled
-                type="text"
-                id="color"
-                value={datas.color}
-                className={`bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
-              />
-            </div>
-            <div className="col-span-3">
-              <label
-                htmlFor="date"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Material Date
-              </label>
-              <input
-                disabled
-                type="date"
-                id="date"
-                value={datas.date}
-                className={`bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
-              />
-            </div>
-            <div className="col-span-3">
-              <label
-                htmlFor="csdate"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                CS Date
-              </label>
-              <input
-                disabled
-                type="date"
-                id="csdate"
-                value={datas.csdate}
-                className={`bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
-              />
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

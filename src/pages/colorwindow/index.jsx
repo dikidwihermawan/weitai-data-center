@@ -10,6 +10,7 @@ function ColorWindow() {
   const [colorWindows, setColorWindows] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
+  const [checkMenu, setCheckMenu] = useState(true);
 
   const getData = async () => {
     try {
@@ -104,6 +105,55 @@ function ColorWindow() {
       sortable: false,
     },
   ];
+  const columns2 = [
+    {
+      name: "Material Asal",
+      selector: (row) => row.material,
+      sortable: true,
+      width: "150px",
+    },
+    {
+      name: "Dipinjamkan untuk",
+      selector: (row) => row.code,
+      sortable: true,
+      width: "250px",
+    },
+    {
+      name: "Penerima",
+      selector: (row) => row.color,
+      sortable: true,
+      width: "250px",
+    },
+    {
+      name: "Dari Tanggal",
+      selector: (row) => row.date,
+      sortable: true,
+      width: "150px",
+    },
+    {
+      name: "CS Date",
+      selector: (row) => row.csdate,
+      sortable: true,
+      width: "130px",
+    },
+    {
+      name: "Qty",
+      selector: (row) => row.qty,
+      sortable: true,
+      width: "100px",
+    },
+    {
+      name: "Customer",
+      selector: (row) => row.customer,
+      sortable: true,
+      width: "200px",
+    },
+    {
+      name: "Action",
+      selector: (row) => buttonAction(row._id),
+      sortable: false,
+    },
+  ];
 
   const buttonAction = (id) => {
     return (
@@ -153,7 +203,40 @@ function ColorWindow() {
   return (
     <div className="max-w-screen-xl mx-auto">
       <div className="flex items-center justify-between p-4">
-        <h1 className="text-xl font-semibold">Color Window List</h1>
+        <div className="text-sm font-medium text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+          <ul className="flex flex-wrap -mb-px">
+            <li className="me-2">
+              <button
+                onClick={() => {
+                  setCheckMenu(true);
+                }}
+                className={`inline-block p-4  border-b ${
+                  checkMenu
+                    ? "border-blue-600 text-blue-600"
+                    : "border-gray-300"
+                } rounded-t-lg`}
+                aria-current="page"
+              >
+                Data Color Window
+              </button>
+            </li>
+            <li className="me-2">
+              <button
+                onClick={() => {
+                  setCheckMenu(false);
+                }}
+                className={`inline-block p-4  border-b ${
+                  checkMenu
+                    ? "border-gray-300"
+                    : "border-blue-600 text-blue-600"
+                } rounded-t-lg`}
+                aria-current="page"
+              >
+                Color Window yang dikeluarkan
+              </button>
+            </li>
+          </ul>
+        </div>
         <div className="flex items-center space-x-4">
           <div className="relative">
             <div className="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
@@ -192,7 +275,7 @@ function ColorWindow() {
         </div>
       </div>
       <DataTable
-        columns={columns}
+        columns={checkMenu ? columns : columns2}
         data={searchInput != "" ? filteredResults : colorWindows}
         fixedHeader={true}
         fixedHeaderScrollHeight="400px"
