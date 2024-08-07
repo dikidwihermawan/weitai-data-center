@@ -6,13 +6,15 @@ import { Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import ColorWindow from "..";
 
-function LocalColorWindow() {
+function ForwardedColorWindow() {
   const redirect = useNavigate();
   const [colorWindows, setColorWindows] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
+  const [checkMenu, setCheckMenu] = useState(true);
 
   const getData = async () => {
+    setColorWindows([]);
     try {
       const response = await axios.get("colorwindow");
       setColorWindows(response.data.data);
@@ -153,7 +155,7 @@ function LocalColorWindow() {
 
   return (
     <>
-      <ColorWindow tabActive="local">
+      <ColorWindow tabActive="forwarded">
         <DataTable
           columns={columns}
           data={searchInput != "" ? filteredResults : colorWindows}
@@ -169,4 +171,4 @@ function LocalColorWindow() {
   );
 }
 
-export default LocalColorWindow;
+export default ForwardedColorWindow;

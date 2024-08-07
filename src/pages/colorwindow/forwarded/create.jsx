@@ -3,7 +3,7 @@ import swal from "sweetalert";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
-function ForwardedToColorWindow() {
+function CreateForwardedColorWindow() {
   const params = useParams();
 
   const redirect = useNavigate();
@@ -265,4 +265,4 @@ function ForwardedToColorWindow() {
   );
 }
 
-export default ForwardedToColorWindow;
+export default CreateForwardedColorWindow;
