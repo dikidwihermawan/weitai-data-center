@@ -150,6 +150,7 @@ function IncomingColorWindow() {
   useEffect(() => {
     getData();
     handleInputChange();
+    console.log(colorWindows);
   }, [searchInput]);
 
   return (

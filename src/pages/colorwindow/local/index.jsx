@@ -5,21 +5,16 @@ import { IconEdit, IconTransferOut, IconTrash } from "@tabler/icons-react";
 import { Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import ColorWindow from "..";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchLocalColorWindows } from "../../../store/colorwindow/localSlice";
 
-function LocalColorWindow() {
+function LocalColorWindows() {
   const redirect = useNavigate();
-  const [colorWindows, setColorWindows] = useState([]);
+  const dispatch = useDispatch();
+  const colorWindows = useSelector((state) => state.localCW.localCW);
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
-
-  const getData = async () => {
-    try {
-      const response = await axios.get("colorwindow");
-      setColorWindows(response.data.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const [checkMenu, setCheckMenu] = useState(true);
 
   const deleteData = (id) => {
     swal({
@@ -147,13 +142,14 @@ function LocalColorWindow() {
   };
 
   useEffect(() => {
-    getData();
     handleInputChange();
+    dispatch(fetchLocalColorWindows());
+    console.log(colorWindows);
   }, [searchInput]);
 
   return (
     <>
-      <ColorWindow tabActive="local">
+      <ColorWindow tabActive="incoming">
         <DataTable
           columns={columns}
           data={searchInput != "" ? filteredResults : colorWindows}
@@ -169,4 +165,4 @@ function LocalColorWindow() {
   );
 }
 
-export default LocalColorWindow;
+export default LocalColorWindows;
