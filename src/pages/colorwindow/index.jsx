@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
-import LocalColorWindow from "./local";
-import IncomingColorWindow from "./incoming";
-import ForwardedColorWindow from "./forwarded";
 import { Link, useLocation } from "react-router-dom";
 
 function ColorWindow({ children }) {
   const location = useLocation().pathname;
-  const [dataMenu, setDataMenu] = useState("local");
   const [active, setActive] = useState();
   const [searchInput, setSearchInput] = useState("");
 
@@ -67,7 +63,7 @@ function ColorWindow({ children }) {
                 active == "incoming" ? "text-blue-600" : "text-gray-900"
               } bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white`}
             >
-              Kedatangan
+              Kirim
             </Link>
             <Link
               to="/colorwindow/forwarded"
@@ -75,7 +71,7 @@ function ColorWindow({ children }) {
                 active == "forwarded" ? "text-blue-600" : "text-gray-900"
               } bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white`}
             >
-              Kirim
+              Pinjam
             </Link>
           </div>
         </div>

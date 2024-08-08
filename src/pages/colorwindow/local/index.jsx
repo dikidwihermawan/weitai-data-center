@@ -2,19 +2,20 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { IconEdit, IconTransferOut, IconTrash } from "@tabler/icons-react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import ColorWindow from "..";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchLocalColorWindows } from "../../../store/colorwindow/localSlice";
 
 function LocalColorWindows() {
   const redirect = useNavigate();
-  const dispatch = useDispatch();
-  const colorWindows = useSelector((state) => state.localCW.localCW);
+  const [colorWindows, setColorWindows] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
-  const [checkMenu, setCheckMenu] = useState(true);
+
+  const getData = async () => {
+    const response = await axios.get("colorwindow");
+    setColorWindows(response.data.data);
+  };
 
   const deleteData = (id) => {
     swal({
@@ -142,9 +143,8 @@ function LocalColorWindows() {
   };
 
   useEffect(() => {
+    getData();
     handleInputChange();
-    dispatch(fetchLocalColorWindows());
-    console.log(colorWindows);
   }, [searchInput]);
 
   return (

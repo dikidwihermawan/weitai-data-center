@@ -17,8 +17,8 @@ const localColorWindowSlice = createSlice({
   name: "localCW",
   initialState,
   extraReducers: (builder) => {
-    builder.addCase(fetchLocalColorWindows.fulfilled, (state, actions) => {
-      state.localCW.push({ ...actions.payload });
+    builder.addCase(fetchLocalColorWindows.fulfilled, (state, action) => {
+      state.localCW.push(...action.payload);
     });
   },
 });
