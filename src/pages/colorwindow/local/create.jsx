@@ -6,19 +6,17 @@ import axios from "axios";
 function CreateColorWindow() {
   const redirect = useNavigate();
   const [errors, setErrors] = useState([]);
-
   const [customer, setCustomer] = useState("");
   const [material, setMaterial] = useState("");
-  const [code, setCode] = useState("");
   const [color, setColor] = useState("");
+  const [type, setType] = useState("");
   const [date, setDate] = useState("");
-  const [csdate, setCsDate] = useState("");
   const [qty, setQty] = useState("");
 
-  const data = { customer, material, code, color, date, csdate, qty };
-
+  const data = { customer, material, color, type, date, qty };
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(data);
     swal({
       title: "Are you sure?",
       text: "Do you want to add data?",
@@ -28,7 +26,7 @@ function CreateColorWindow() {
     }).then(async (willDelete) => {
       if (willDelete) {
         try {
-          const response = await axios.post("/colorwindow/create", data);
+          const response = await axios.post("/colorwindow/local/create", data);
           swal(response.data.success, {
             icon: "success",
           });
@@ -49,22 +47,22 @@ function CreateColorWindow() {
   };
   return (
     <div className="max-w-screen-xl mx-auto">
-      <div className="p-4 flex items-center justify-between">
+      <div className="px-4 pt-4 pb-12 flex items-center justify-between">
         <h1 className="text-xl font-semibold">Create Color Window</h1>
         <Link
           to="/colorwindow"
-          className="px-4 py-2 rounded text-sm text-white bg-green-600"
+          className="px-4 py-2 rounded text-xs text-white bg-green-600 hover:bg-green-800"
         >
           Back
         </Link>
       </div>
       <form onSubmit={handleSubmit} method="POST">
         <div className="px-4 space-y-4">
-          <div className="grid gap-6 mb-6 md:grid-cols-12">
-            <div className="col-span-4">
+          <div className="grid gap-6 mb-6 md:grid-cols-10">
+            <div className="col-span-5">
               <label
                 htmlFor="customer"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-xs font-medium text-gray-900 dark:text-white"
               >
                 Customer
               </label>
@@ -77,7 +75,7 @@ function CreateColorWindow() {
                 id="customer"
                 className={`bg-gray-50 border ${
                   errors.customer ? "border-red-600" : "border-gray-300"
-                } text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
+                } text-gray-900 text-xs rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
               >
                 <option value="" selected disabled>
                   PILIH CUSTOMER
@@ -105,10 +103,10 @@ function CreateColorWindow() {
                 <span className="text-red-600 text-xs">{errors.customer}</span>
               ) : null}
             </div>
-            <div className="col-span-4">
+            <div className="col-span-5">
               <label
                 htmlFor="material"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-xs font-medium text-gray-900 dark:text-white"
               >
                 Material
               </label>
@@ -121,7 +119,7 @@ function CreateColorWindow() {
                 id="material"
                 className={`bg-gray-50 border ${
                   errors.material ? "border-red-600" : "border-gray-300"
-                } text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
+                } text-gray-900 text-xs rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
               >
                 <option value="" selected disabled>
                   PILIH MATERIAL
@@ -142,8 +140,62 @@ function CreateColorWindow() {
             </div>
             <div className="col-span-4">
               <label
+                htmlFor="color"
+                className="block mb-2 text-xs font-medium text-gray-900 dark:text-white"
+              >
+                Color
+              </label>
+              <input
+                type="text"
+                id="color"
+                name="color"
+                value={color}
+                onChange={(e) => {
+                  setColor(e.target.value);
+                }}
+                className={`bg-gray-50 border ${
+                  errors.color ? "border-red-600" : "border-gray-300"
+                } text-gray-900 text-xs rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
+              />
+              {errors.color ? (
+                <span className="text-red-600 text-xs">{errors.color}</span>
+              ) : null}
+            </div>
+            <div className="col-span-2">
+              <label
+                htmlFor="type"
+                className="block mb-2 text-xs font-medium text-gray-900 dark:text-white"
+              >
+                JENIS
+              </label>
+              <select
+                onChange={(e) => {
+                  setType(e.target.value);
+                }}
+                name="type"
+                value={type}
+                id="type"
+                className={`bg-gray-50 border ${
+                  errors.type ? "border-red-600" : "border-gray-300"
+                } text-gray-900 text-xs rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
+              >
+                <option value="" selected disabled>
+                  PILIH JENIS
+                </option>
+                <option selected value="COLOR WINDOW">
+                  COLOR WINDOW
+                </option>
+                <option value="COLOR SWATCH">COLOR SWATCH</option>
+                <option value="SAMPLE">SAMPLE</option>
+              </select>
+              {errors.type ? (
+                <span className="text-red-600 text-xs">{errors.type}</span>
+              ) : null}
+            </div>
+            <div className="col-span-2">
+              <label
                 htmlFor="qty"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-xs font-medium text-gray-900 dark:text-white"
               >
                 Quantity
               </label>
@@ -161,64 +213,18 @@ function CreateColorWindow() {
                 }}
                 className={`bg-gray-50 border ${
                   errors.qty ? "border-red-600" : "border-gray-300"
-                } text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
+                } text-gray-900 text-xs rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
               />
               {errors.qty ? (
                 <span className="text-red-600 text-xs">{errors.qty}</span>
               ) : null}
             </div>
-            <div className="col-span-3">
-              <label
-                htmlFor="code"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Material Code
-              </label>
-              <input
-                type="text"
-                id="code"
-                name="code"
-                value={code}
-                onChange={(e) => {
-                  setCode(e.target.value);
-                }}
-                className={`bg-gray-50 border ${
-                  errors.code ? "border-red-600" : "border-gray-300"
-                } text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
-              />
-              {errors.code ? (
-                <span className="text-red-600 text-xs">{errors.code}</span>
-              ) : null}
-            </div>
-            <div className="col-span-3">
-              <label
-                htmlFor="color"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Color
-              </label>
-              <input
-                type="text"
-                id="color"
-                name="color"
-                value={color}
-                onChange={(e) => {
-                  setColor(e.target.value);
-                }}
-                className={`bg-gray-50 border ${
-                  errors.color ? "border-red-600" : "border-gray-300"
-                } text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
-              />
-              {errors.color ? (
-                <span className="text-red-600 text-xs">{errors.color}</span>
-              ) : null}
-            </div>
-            <div className="col-span-3">
+            <div className="col-span-2">
               <label
                 htmlFor="date"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-xs font-medium text-gray-900 dark:text-white"
               >
-                Material Date
+                Tanggal Kedatangan
               </label>
               <input
                 type="date"
@@ -230,36 +236,18 @@ function CreateColorWindow() {
                 }}
                 className={`bg-gray-50 border ${
                   errors.date ? "border-red-600" : "border-gray-300"
-                } text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
+                } text-gray-900 text-xs rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
               />
               {errors.date ? (
                 <span className="text-red-600 text-xs">{errors.date}</span>
               ) : null}
-            </div>
-            <div className="col-span-3">
-              <label
-                htmlFor="csdate"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                CS Date
-              </label>
-              <input
-                type="date"
-                id="csdate"
-                name="csdate"
-                value={csdate}
-                onChange={(e) => {
-                  setCsDate(e.target.value);
-                }}
-                className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
-              />
             </div>
           </div>
         </div>
         <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600 justify-end">
           <button
             type="submit"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             Submit
           </button>

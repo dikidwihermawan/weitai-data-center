@@ -3,23 +3,22 @@ import { Link, useLocation } from "react-router-dom";
 
 function ColorWindow({ children }) {
   const location = useLocation().pathname;
-  const [active, setActive] = useState();
+  const [active, setActive] = useState("");
   const [searchInput, setSearchInput] = useState("");
 
-  if (location == "/local") {
+  if (location == "/") {
     setActive("local");
-  } else if (location == "/incoming") {
-    setActive("incoming");
   } else if (location == "forwarded") {
     setActive("forwarded");
+  } else if (location == "borrow") {
+    setActive("borrow");
   }
 
   useEffect(() => {}, [searchInput]);
-
   return (
     <>
       <div className="max-w-screen-xl mx-auto">
-        <div className="flex items-center justify-end space-x-4 p-4">
+        <div className="flex items-center justify-end space-x-4 py-4">
           <div className="relative">
             <div className="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
               <svg
@@ -49,31 +48,37 @@ function ColorWindow({ children }) {
           </div>
           <div className="inline-flex rounded-md shadow-sm">
             <Link
-              to="/colorwindow/local"
+              to="/colorwindow"
               aria-current="page"
               className={`px-4 py-2 text-xs font-medium ${
                 active == "local" ? "text-blue-600" : "text-blue-600"
-              } bg-white border text-blue-600 border-gray-200 rounded-s-lg hover:bg-gray-100 focus:z-10 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white`}
+              } bg-white border text-blue-600 border-gray-200 rounded-s-lg hover:bg-gray-100 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white`}
             >
               Lokal
-            </Link>
-            <Link
-              to="/colorwindow/incoming"
-              className={`px-4 py-2 text-xs font-medium ${
-                active == "incoming" ? "text-blue-600" : "text-gray-900"
-              } bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white`}
-            >
-              Kirim
             </Link>
             <Link
               to="/colorwindow/forwarded"
               className={`px-4 py-2 text-xs font-medium ${
                 active == "forwarded" ? "text-blue-600" : "text-gray-900"
-              } bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white`}
+              } bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white`}
+            >
+              Kirim
+            </Link>
+            <Link
+              to="/colorwindow/incoming"
+              className={`px-4 py-2 text-xs font-medium ${
+                active == "incoming" ? "text-blue-600" : "text-gray-900"
+              } bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white`}
             >
               Pinjam
             </Link>
           </div>
+          <Link
+            to="/colorwindow/local/create"
+            className="px-4 py-2 text-white bg-blue-600 focus:outline-none hover:bg-blue-400 rounded-xl text-xs"
+          >
+            Create new data
+          </Link>
         </div>
         {children}
       </div>

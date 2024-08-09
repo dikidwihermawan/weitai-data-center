@@ -27,7 +27,7 @@ function LocalColorWindows() {
     }).then(async (willDelete) => {
       if (willDelete) {
         try {
-          const response = await axios.delete(`colorwindow/delete/${id}`);
+          const response = await axios.delete(`colorwindow/local/delete/${id}`);
           swal(response.data.success, {
             icon: "success",
           });
@@ -44,9 +44,9 @@ function LocalColorWindows() {
 
   const handleClick = (id, action) => {
     if (action == "edit") {
-      redirect(`edit/${id}`);
+      redirect(`local/edit/${id}`);
     } else if (action == "view") {
-      redirect(`forward/${id}`);
+      redirect(`local/forward/${id}`);
     } else if (action == "delete") {
       deleteData(id);
     }
@@ -54,16 +54,16 @@ function LocalColorWindows() {
 
   const columns = [
     {
+      name: "Customer",
+      selector: (row) => <div style={{ fontSize: 11 }}>{row.customer}</div>,
+      sortable: true,
+      width: "200px",
+    },
+    {
       name: "Material",
       selector: (row) => <div style={{ fontSize: 11 }}>{row.material}</div>,
       sortable: true,
-      width: "150px",
-    },
-    {
-      name: "Code",
-      selector: (row) => <div style={{ fontSize: 11 }}>{row.code}</div>,
-      sortable: true,
-      width: "150px",
+      width: "200px",
     },
     {
       name: "Color",
@@ -75,25 +75,17 @@ function LocalColorWindows() {
       name: "Date",
       selector: (row) => <div style={{ fontSize: 11 }}>{row.date}</div>,
       sortable: true,
-      width: "130px",
     },
     {
-      name: "CS Date",
-      selector: (row) => <div style={{ fontSize: 11 }}>{row.csdate}</div>,
+      name: "Type",
+      selector: (row) => <div style={{ fontSize: 11 }}>{row.type}</div>,
       sortable: true,
-      width: "130px",
     },
     {
       name: "Qty",
       selector: (row) => <div style={{ fontSize: 11 }}>{row.qty}</div>,
       sortable: true,
       width: "100px",
-    },
-    {
-      name: "Customer",
-      selector: (row) => <div style={{ fontSize: 11 }}>{row.customer}</div>,
-      sortable: true,
-      width: "200px",
     },
     {
       name: "Action",
@@ -149,7 +141,7 @@ function LocalColorWindows() {
 
   return (
     <>
-      <ColorWindow tabActive="incoming">
+      <ColorWindow tabActive="local">
         <DataTable
           columns={columns}
           data={searchInput != "" ? filteredResults : colorWindows}

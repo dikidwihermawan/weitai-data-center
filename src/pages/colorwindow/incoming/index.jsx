@@ -11,7 +11,6 @@ function IncomingColorWindow() {
   const [colorWindows, setColorWindows] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
-  const [checkMenu, setCheckMenu] = useState(true);
 
   const getData = async () => {
     try {

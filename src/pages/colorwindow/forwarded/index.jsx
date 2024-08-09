@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { IconEdit, IconTransferOut, IconTrash } from "@tabler/icons-react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import ColorWindow from "..";
 
@@ -11,16 +11,10 @@ function ForwardedColorWindow() {
   const [colorWindows, setColorWindows] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
-  const [checkMenu, setCheckMenu] = useState(true);
 
   const getData = async () => {
-    setColorWindows([]);
-    try {
-      const response = await axios.get("colorwindow");
-      setColorWindows(response.data.data);
-    } catch (err) {
-      console.log(err);
-    }
+    const response = await axios.get("colorwindow/forwarded");
+    setColorWindows(response.data.data);
   };
 
   const deleteData = (id) => {
@@ -33,7 +27,7 @@ function ForwardedColorWindow() {
     }).then(async (willDelete) => {
       if (willDelete) {
         try {
-          const response = await axios.delete(`colorwindow/delete/${id}`);
+          const response = await axios.delete(`colorwindow/local/delete/${id}`);
           swal(response.data.success, {
             icon: "success",
           });
@@ -50,9 +44,9 @@ function ForwardedColorWindow() {
 
   const handleClick = (id, action) => {
     if (action == "edit") {
-      redirect(`edit/${id}`);
+      redirect(`local/edit/${id}`);
     } else if (action == "view") {
-      redirect(`forward/${id}`);
+      redirect(`local/forward/${id}`);
     } else if (action == "delete") {
       deleteData(id);
     }
@@ -60,16 +54,16 @@ function ForwardedColorWindow() {
 
   const columns = [
     {
+      name: "Customer",
+      selector: (row) => <div style={{ fontSize: 11 }}>{row.customer}</div>,
+      sortable: true,
+      width: "200px",
+    },
+    {
       name: "Material",
       selector: (row) => <div style={{ fontSize: 11 }}>{row.material}</div>,
       sortable: true,
-      width: "150px",
-    },
-    {
-      name: "Code",
-      selector: (row) => <div style={{ fontSize: 11 }}>{row.code}</div>,
-      sortable: true,
-      width: "150px",
+      width: "200px",
     },
     {
       name: "Color",
@@ -81,25 +75,17 @@ function ForwardedColorWindow() {
       name: "Date",
       selector: (row) => <div style={{ fontSize: 11 }}>{row.date}</div>,
       sortable: true,
-      width: "130px",
     },
     {
-      name: "CS Date",
-      selector: (row) => <div style={{ fontSize: 11 }}>{row.csdate}</div>,
+      name: "Type",
+      selector: (row) => <div style={{ fontSize: 11 }}>{row.type}</div>,
       sortable: true,
-      width: "130px",
     },
     {
       name: "Qty",
       selector: (row) => <div style={{ fontSize: 11 }}>{row.qty}</div>,
       sortable: true,
       width: "100px",
-    },
-    {
-      name: "Customer",
-      selector: (row) => <div style={{ fontSize: 11 }}>{row.customer}</div>,
-      sortable: true,
-      width: "200px",
     },
     {
       name: "Action",
