@@ -55,7 +55,9 @@ function ForwardedColorWindow() {
   const columns = [
     {
       name: "Customer",
-      selector: (row) => <div style={{ fontSize: 11 }}>{row.customer}</div>,
+      selector: (row) => (
+        <div style={{ fontSize: 11 }}>{row.recipient_customer}</div>
+      ),
       sortable: true,
       width: "200px",
     },

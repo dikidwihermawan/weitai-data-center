@@ -21,7 +21,6 @@ function ForwardedColorWindow() {
   const getData = async () => {
     const response = await axios.get(`colorwindow/local/forward/${params.id}`);
     setDatas(response.data.data);
-    console.log(response.data);
   };
 
   const handleSubmit = (e) => {
