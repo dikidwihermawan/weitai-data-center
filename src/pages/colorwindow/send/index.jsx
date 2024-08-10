@@ -6,14 +6,14 @@ import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import ColorWindow from "..";
 
-function ForwardedColorWindow() {
+function SendColorWindow() {
   const redirect = useNavigate();
   const [colorWindows, setColorWindows] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
 
   const getData = async () => {
-    const response = await axios.get("colorwindow/forwarded");
+    const response = await axios.get("colorwindow/send");
     setColorWindows(response.data.data);
   };
 
@@ -54,40 +54,64 @@ function ForwardedColorWindow() {
 
   const columns = [
     {
-      name: "Customer",
+      name: "Material yang dikirim",
       selector: (row) => (
-        <div style={{ fontSize: 11 }}>{row.recipient_customer}</div>
+        <div
+          style={{ fontSize: 11 }}
+        >{`${row.colorwindow.material} ${row.colorwindow.color}`}</div>
       ),
       sortable: true,
       width: "200px",
     },
     {
-      name: "Material",
-      selector: (row) => <div style={{ fontSize: 11 }}>{row.material}</div>,
-      sortable: true,
-      width: "200px",
-    },
-    {
-      name: "Color",
-      selector: (row) => <div style={{ fontSize: 11 }}>{row.color}</div>,
-      sortable: true,
-      width: "200px",
-    },
-    {
-      name: "Date",
-      selector: (row) => <div style={{ fontSize: 11 }}>{row.date}</div>,
+      name: "Tujuan",
+      selector: (row) => (
+        <div style={{ fontSize: 11 }}>{row.recipient_customer}</div>
+      ),
       sortable: true,
     },
     {
-      name: "Type",
-      selector: (row) => <div style={{ fontSize: 11 }}>{row.type}</div>,
+      name: "Nama",
+      selector: (row) => (
+        <div style={{ fontSize: 11 }}>{row.recipient_name}</div>
+      ),
       sortable: true,
     },
     {
-      name: "Qty",
-      selector: (row) => <div style={{ fontSize: 11 }}>{row.qty}</div>,
+      name: "Quantity",
+      selector: (row) => (
+        <div style={{ fontSize: 11 }}>{row.recipient_qty}</div>
+      ),
       sortable: true,
-      width: "100px",
+    },
+    {
+      name: "Tanggal Kirim",
+      selector: (row) => (
+        <div style={{ fontSize: 11 }}>{row.recipient_send}</div>
+      ),
+      sortable: true,
+    },
+    {
+      name: "Tanggal Kembalikan",
+      selector: (row) => (
+        <div style={{ fontSize: 11 }}>{row.recipient_return || "-"}</div>
+      ),
+      sortable: true,
+    },
+    {
+      name: "Status",
+      selector: (row) => (
+        <div style={{ fontSize: 11 }}>{row.recipient_status}</div>
+      ),
+      sortable: true,
+    },
+    {
+      name: "Keterangan",
+      selector: (row) => (
+        <div style={{ fontSize: 11 }}>{row.recipient_information}</div>
+      ),
+      sortable: true,
+      width: "300px",
     },
     {
       name: "Action",
@@ -109,7 +133,7 @@ function ForwardedColorWindow() {
         <button
           onClick={() => handleClick(id, "view")}
           className="px-2 py-2 text-xs rounded"
-          title="Pinjamkan"
+          title="Kirim"
         >
           <IconTransferOut stroke={1} width={20} />
         </button>
@@ -143,7 +167,7 @@ function ForwardedColorWindow() {
 
   return (
     <>
-      <ColorWindow tabActive="forwarded">
+      <ColorWindow tabActive="send">
         <DataTable
           columns={columns}
           data={searchInput != "" ? filteredResults : colorWindows}
@@ -159,4 +183,4 @@ function ForwardedColorWindow() {
   );
 }
 
-export default ForwardedColorWindow;
+export default SendColorWindow;

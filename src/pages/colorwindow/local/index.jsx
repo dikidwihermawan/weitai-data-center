@@ -46,7 +46,7 @@ function LocalColorWindows() {
     if (action == "edit") {
       redirect(`local/edit/${id}`);
     } else if (action == "view") {
-      redirect(`local/forward/${id}`);
+      redirect(`local/send/${id}`);
     } else if (action == "delete") {
       deleteData(id);
     }
@@ -107,7 +107,7 @@ function LocalColorWindows() {
         <button
           onClick={() => handleClick(id, "view")}
           className="px-2 py-2 text-xs rounded"
-          title="Pinjamkan"
+          title="Kirim"
         >
           <IconTransferOut stroke={1} width={20} />
         </button>

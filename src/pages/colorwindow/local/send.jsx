@@ -3,7 +3,7 @@ import swal from "sweetalert";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
-function ForwardedColorWindow() {
+function CreateSendColorWindow() {
   const params = useParams();
 
   const redirect = useNavigate();
@@ -19,7 +19,7 @@ function ForwardedColorWindow() {
   const data = { customer, receiver, qty, information, date };
 
   const getData = async () => {
-    const response = await axios.get(`colorwindow/local/forward/${params.id}`);
+    const response = await axios.get(`colorwindow/local/send/${params.id}`);
     setDatas(response.data.data);
   };
 
@@ -35,13 +35,13 @@ function ForwardedColorWindow() {
       if (willDelete) {
         try {
           const response = await axios.post(
-            `colorwindow/local/forward/${params.id}`,
+            `colorwindow/local/send/${params.id}`,
             data
           );
           swal(response.data.success, {
             icon: "success",
           });
-          redirect("/colorwindow");
+          redirect("/colorwindow/send");
         } catch (e) {
           let data = e.response.data.data;
           let arrayBuffer = [];
@@ -63,7 +63,7 @@ function ForwardedColorWindow() {
   return (
     <div className="max-w-screen-xl mx-auto">
       <div className="p-4 flex items-center justify-between">
-        <h1 className="text-xl font-semibold">Forwarded Color Window</h1>
+        <h1 className="text-xl font-semibold">Send Color Window</h1>
         <Link
           to="/colorwindow"
           className="px-4 py-2 rounded text-xs text-white bg-green-600"
@@ -129,6 +129,9 @@ function ForwardedColorWindow() {
                 >
                   <option value="" disabled>
                     PILIH CUSTOMER
+                  </option>
+                  <option selected value="WEITAI VN">
+                    WEITAI VN
                   </option>
                   <option selected value="TAH SUNG HUNG">
                     TAH SUNG HUNG
@@ -265,4 +268,4 @@ function ForwardedColorWindow() {
   );
 }
 
-export default ForwardedColorWindow;
+export default CreateSendColorWindow;

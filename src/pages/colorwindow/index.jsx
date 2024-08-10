@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-function ColorWindow({ children }) {
-  const location = useLocation().pathname;
+function ColorWindow(props) {
   const [active, setActive] = useState("");
   const [searchInput, setSearchInput] = useState("");
 
-  if (location == "/") {
-    setActive("local");
-  } else if (location == "forwarded") {
-    setActive("forwarded");
-  } else if (location == "borrow") {
-    setActive("borrow");
-  }
-
-  useEffect(() => {}, [searchInput]);
+  useEffect(() => {
+    if (props.tabActive == "local") {
+      setActive("local");
+    } else if (props.tabActive == "send") {
+      setActive("send");
+    } else if (props.tabActive == "borrow") {
+      setActive("borrow");
+    }
+  }, [searchInput]);
   return (
     <>
       <div className="max-w-screen-xl mx-auto">
@@ -51,15 +50,15 @@ function ColorWindow({ children }) {
               to="/colorwindow"
               aria-current="page"
               className={`px-4 py-2 text-xs font-medium ${
-                active == "local" ? "text-blue-600" : "text-blue-600"
-              } bg-white border text-blue-600 border-gray-200 rounded-s-lg hover:bg-gray-100 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white`}
+                active == "local" ? "text-blue-600" : "text-gray-900"
+              } bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white`}
             >
               Lokal
             </Link>
             <Link
-              to="/colorwindow/forwarded"
+              to="/colorwindow/send"
               className={`px-4 py-2 text-xs font-medium ${
-                active == "forwarded" ? "text-blue-600" : "text-gray-900"
+                active == "send" ? "text-blue-600" : "text-gray-900"
               } bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white`}
             >
               Kirim
@@ -67,7 +66,7 @@ function ColorWindow({ children }) {
             <Link
               to="/colorwindow/incoming"
               className={`px-4 py-2 text-xs font-medium ${
-                active == "incoming" ? "text-blue-600" : "text-gray-900"
+                active == "borrow" ? "text-blue-600" : "text-gray-900"
               } bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white`}
             >
               Pinjam
@@ -80,7 +79,7 @@ function ColorWindow({ children }) {
             Create new data
           </Link>
         </div>
-        {children}
+        {props.children}
       </div>
     </>
   );
