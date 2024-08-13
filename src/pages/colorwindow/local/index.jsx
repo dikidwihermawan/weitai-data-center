@@ -36,7 +36,6 @@ function LocalColorWindows() {
           swal("Data can't deleted!", {
             icon: "error",
           });
-          console.log(e);
         }
       }
     });

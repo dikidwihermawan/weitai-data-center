@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import ColorWindow from "..";
 
-function IncomingColorWindow() {
+function BorrowColorWindow() {
   const redirect = useNavigate();
   const [colorWindows, setColorWindows] = useState([]);
   const [searchInput, setSearchInput] = useState("");
@@ -154,7 +154,7 @@ function IncomingColorWindow() {
 
   return (
     <>
-      <ColorWindow tabActive="incoming">
+      <ColorWindow tabActive="borrow">
         <DataTable
           columns={columns}
           data={searchInput != "" ? filteredResults : colorWindows}
@@ -170,4 +170,4 @@ function IncomingColorWindow() {
   );
 }
 
-export default IncomingColorWindow;
+export default BorrowColorWindow;

@@ -69,6 +69,7 @@ function SendColorWindow() {
         <div style={{ fontSize: 11 }}>{row.recipient_customer}</div>
       ),
       sortable: true,
+      width: "150px",
     },
     {
       name: "Nama",
@@ -76,6 +77,7 @@ function SendColorWindow() {
         <div style={{ fontSize: 11 }}>{row.recipient_name}</div>
       ),
       sortable: true,
+      width: "150px",
     },
     {
       name: "Quantity",
@@ -83,13 +85,15 @@ function SendColorWindow() {
         <div style={{ fontSize: 11 }}>{row.recipient_qty}</div>
       ),
       sortable: true,
+      width: "100px",
     },
     {
       name: "Tanggal Kirim",
       selector: (row) => (
-        <div style={{ fontSize: 11 }}>{row.recipient_send}</div>
+        <div style={{ fontSize: 11 }}>{row.recipient_date}</div>
       ),
       sortable: true,
+      width: "150px",
     },
     {
       name: "Tanggal Kembalikan",
@@ -97,6 +101,7 @@ function SendColorWindow() {
         <div style={{ fontSize: 11 }}>{row.recipient_return || "-"}</div>
       ),
       sortable: true,
+      width: "150px",
     },
     {
       name: "Status",
@@ -111,12 +116,13 @@ function SendColorWindow() {
         <div style={{ fontSize: 11 }}>{row.recipient_information}</div>
       ),
       sortable: true,
-      width: "300px",
+      width: "250px",
     },
     {
       name: "Action",
       selector: (row) => buttonAction(row._id),
       sortable: false,
+      width: "200px",
     },
   ];
 

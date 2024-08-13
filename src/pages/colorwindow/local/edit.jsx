@@ -95,7 +95,7 @@ function EditColorWindow() {
                 id="customer"
                 className={`bg-gray-50 border ${
                   errors.customer ? "border-red-600" : "border-gray-300"
-                } text-gray-900 text-xs rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
+                } text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
               >
                 <option value="" selected disabled>
                   PILIH CUSTOMER
@@ -139,7 +139,7 @@ function EditColorWindow() {
                 id="material"
                 className={`bg-gray-50 border ${
                   errors.material ? "border-red-600" : "border-gray-300"
-                } text-gray-900 text-xs rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
+                } text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
               >
                 <option value="" selected disabled>
                   PILIH MATERIAL
@@ -175,7 +175,7 @@ function EditColorWindow() {
                 }}
                 className={`bg-gray-50 border ${
                   errors.color ? "border-red-600" : "border-gray-300"
-                } text-gray-900 text-xs rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
+                } text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
               />
               {errors.color ? (
                 <span className="text-red-600 text-xs">{errors.color}</span>
@@ -197,7 +197,7 @@ function EditColorWindow() {
                 id="type"
                 className={`bg-gray-50 border ${
                   errors.type ? "border-red-600" : "border-gray-300"
-                } text-gray-900 text-xs rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
+                } text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
               >
                 <option value="" selected disabled>
                   PILIH JENIS
@@ -233,7 +233,7 @@ function EditColorWindow() {
                 }}
                 className={`bg-gray-50 border ${
                   errors.qty ? "border-red-600" : "border-gray-300"
-                } text-gray-900 text-xs rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
+                } text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
               />
               {errors.qty ? (
                 <span className="text-red-600 text-xs">{errors.qty}</span>
@@ -256,7 +256,7 @@ function EditColorWindow() {
                 }}
                 className={`bg-gray-50 border ${
                   errors.date ? "border-red-600" : "border-gray-300"
-                } text-gray-900 text-xs rounded-lg focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
+                } text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
               />
               {errors.date ? (
                 <span className="text-red-600 text-xs">{errors.date}</span>

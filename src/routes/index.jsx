@@ -4,8 +4,8 @@ import LocalColorWindow from "../pages/colorwindow/local";
 import CreateColorWindow from "../pages/colorwindow/local/create";
 import EditColorWindow from "../pages/colorwindow/local/edit";
 import CreateSendToColorWindow from "../pages/colorwindow/local/send";
-import IncomingColorWindow from "../pages/colorwindow/incoming";
 import SendColorWindow from "../pages/colorwindow/send";
+import BorrowColorWindow from "../pages/colorwindow/borrow";
 
 export default function Router() {
   return (
@@ -27,7 +27,7 @@ export default function Router() {
           element={<CreateSendToColorWindow />}
         />
         <Route path="colorwindow/send" element={<SendColorWindow />} />
-        <Route path="colorwindow/incoming" element={<IncomingColorWindow />} />
+        <Route path="colorwindow/borrow" element={<BorrowColorWindow />} />
       </Routes>
     </div>
   );
