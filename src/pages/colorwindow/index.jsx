@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Sidebar from "../../header/sidebar";
 
 function ColorWindow(props) {
   const [active, setActive] = useState("");
@@ -15,7 +16,7 @@ function ColorWindow(props) {
     }
   }, [searchInput]);
   return (
-    <>
+    <Sidebar>
       <div className="max-w-screen-xl mx-auto">
         <div className="flex items-center justify-end space-x-4 py-4">
           <div className="relative">
@@ -81,7 +82,7 @@ function ColorWindow(props) {
         </div>
         {props.children}
       </div>
-    </>
+    </Sidebar>
   );
 }
 

@@ -3,8 +3,7 @@ import Navbar from "./header";
 
 function App() {
   return (
-    <div className="mx-12">
-      <Navbar />
+    <div>
       <Router />
     </div>
   );

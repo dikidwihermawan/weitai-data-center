@@ -54,35 +54,37 @@ function LocalColorWindows() {
   const columns = [
     {
       name: "Customer",
-      selector: (row) => <div style={{ fontSize: 11 }}>{row.customer}</div>,
+      selector: (row) => <div style={{ fontSize: 10 }}>{row.customer}</div>,
       sortable: true,
       width: "200px",
     },
     {
       name: "Material",
-      selector: (row) => <div style={{ fontSize: 11 }}>{row.material}</div>,
+      selector: (row) => <div style={{ fontSize: 10 }}>{row.material}</div>,
       sortable: true,
       width: "200px",
     },
     {
       name: "Color",
-      selector: (row) => <div style={{ fontSize: 11 }}>{row.color}</div>,
+      selector: (row) => <div style={{ fontSize: 10 }}>{row.color}</div>,
       sortable: true,
       width: "200px",
     },
     {
       name: "Date",
-      selector: (row) => <div style={{ fontSize: 11 }}>{row.date}</div>,
+      selector: (row) => <div style={{ fontSize: 10 }}>{row.date}</div>,
       sortable: true,
+      width: "100px",
     },
     {
       name: "Type",
-      selector: (row) => <div style={{ fontSize: 11 }}>{row.type}</div>,
+      selector: (row) => <div style={{ fontSize: 10 }}>{row.type}</div>,
       sortable: true,
+      width: "120px",
     },
     {
       name: "Qty",
-      selector: (row) => <div style={{ fontSize: 11 }}>{row.qty}</div>,
+      selector: (row) => <div style={{ fontSize: 10 }}>{row.qty}</div>,
       sortable: true,
       width: "100px",
     },
@@ -95,7 +97,7 @@ function LocalColorWindows() {
 
   const buttonAction = (id) => {
     return (
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-2">
         <button
           onClick={() => handleClick(id, "edit")}
           className="px-2 py-2 text-xs rounded"

@@ -6,6 +6,7 @@ import EditColorWindow from "../pages/colorwindow/local/edit";
 import CreateSendToColorWindow from "../pages/colorwindow/local/send";
 import SendColorWindow from "../pages/colorwindow/send";
 import BorrowColorWindow from "../pages/colorwindow/borrow";
+import NotFound from "../error/404";
 
 export default function Router() {
   return (
@@ -28,6 +29,7 @@ export default function Router() {
         />
         <Route path="colorwindow/send" element={<SendColorWindow />} />
         <Route path="colorwindow/borrow" element={<BorrowColorWindow />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
