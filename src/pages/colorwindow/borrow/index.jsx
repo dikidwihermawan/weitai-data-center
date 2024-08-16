@@ -2,23 +2,19 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { IconEdit, IconTransferOut, IconTrash } from "@tabler/icons-react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 import ColorWindow from "..";
 
-function BorrowColorWindow() {
+function BorrowColorWindows() {
   const redirect = useNavigate();
   const [colorWindows, setColorWindows] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
 
   const getData = async () => {
-    try {
-      const response = await axios.get("colorwindow");
-      setColorWindows(response.data.data);
-    } catch (err) {
-      console.log(err);
-    }
+    const response = await axios.get("colorwindow");
+    setColorWindows(response.data.data);
   };
 
   const deleteData = (id) => {
@@ -31,7 +27,7 @@ function BorrowColorWindow() {
     }).then(async (willDelete) => {
       if (willDelete) {
         try {
-          const response = await axios.delete(`colorwindow/delete/${id}`);
+          const response = await axios.delete(`colorwindow/local/delete/${id}`);
           swal(response.data.success, {
             icon: "success",
           });
@@ -40,7 +36,6 @@ function BorrowColorWindow() {
           swal("Data can't deleted!", {
             icon: "error",
           });
-          console.log(e);
         }
       }
     });
@@ -48,9 +43,9 @@ function BorrowColorWindow() {
 
   const handleClick = (id, action) => {
     if (action == "edit") {
-      redirect(`edit/${id}`);
+      redirect(`local/edit/${id}`);
     } else if (action == "view") {
-      redirect(`forward/${id}`);
+      redirect(`local/send/${id}`);
     } else if (action == "delete") {
       deleteData(id);
     }
@@ -58,16 +53,16 @@ function BorrowColorWindow() {
 
   const columns = [
     {
+      name: "Customer",
+      selector: (row) => <div style={{ fontSize: 10 }}>{row.customer}</div>,
+      sortable: true,
+      width: "200px",
+    },
+    {
       name: "Material",
       selector: (row) => <div style={{ fontSize: 10 }}>{row.material}</div>,
       sortable: true,
-      width: "150px",
-    },
-    {
-      name: "Code",
-      selector: (row) => <div style={{ fontSize: 10 }}>{row.code}</div>,
-      sortable: true,
-      width: "150px",
+      width: "200px",
     },
     {
       name: "Color",
@@ -79,25 +74,19 @@ function BorrowColorWindow() {
       name: "Date",
       selector: (row) => <div style={{ fontSize: 10 }}>{row.date}</div>,
       sortable: true,
-      width: "130px",
+      width: "100px",
     },
     {
-      name: "CS Date",
-      selector: (row) => <div style={{ fontSize: 10 }}>{row.csdate}</div>,
+      name: "Type",
+      selector: (row) => <div style={{ fontSize: 10 }}>{row.type}</div>,
       sortable: true,
-      width: "130px",
+      width: "120px",
     },
     {
       name: "Qty",
       selector: (row) => <div style={{ fontSize: 10 }}>{row.qty}</div>,
       sortable: true,
       width: "100px",
-    },
-    {
-      name: "Customer",
-      selector: (row) => <div style={{ fontSize: 10 }}>{row.customer}</div>,
-      sortable: true,
-      width: "200px",
     },
     {
       name: "Action",
@@ -108,7 +97,7 @@ function BorrowColorWindow() {
 
   const buttonAction = (id) => {
     return (
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-2">
         <button
           onClick={() => handleClick(id, "edit")}
           className="px-2 py-2 text-xs rounded"
@@ -119,7 +108,7 @@ function BorrowColorWindow() {
         <button
           onClick={() => handleClick(id, "view")}
           className="px-2 py-2 text-xs rounded"
-          title="Pinjamkan"
+          title="Kirim"
         >
           <IconTransferOut stroke={1} width={20} />
         </button>
@@ -149,7 +138,6 @@ function BorrowColorWindow() {
   useEffect(() => {
     getData();
     handleInputChange();
-    console.log(colorWindows);
   }, [searchInput]);
 
   return (
@@ -170,4 +158,4 @@ function BorrowColorWindow() {
   );
 }
 
-export default BorrowColorWindow;
+export default BorrowColorWindows;

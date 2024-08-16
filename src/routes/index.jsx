@@ -3,10 +3,11 @@ import Home from "../pages/home";
 import LocalColorWindow from "../pages/colorwindow/local";
 import CreateColorWindow from "../pages/colorwindow/local/create";
 import EditColorWindow from "../pages/colorwindow/local/edit";
-import CreateSendToColorWindow from "../pages/colorwindow/local/send";
 import SendColorWindow from "../pages/colorwindow/send";
+import CreateSendToColorWindow from "../pages/colorwindow/send/create";
 import BorrowColorWindow from "../pages/colorwindow/borrow";
 import NotFound from "../error/404";
+import CreateBorrowColorWindow from "../pages/colorwindow/borrow/create";
 
 export default function Router() {
   return (
@@ -29,6 +30,10 @@ export default function Router() {
         />
         <Route path="colorwindow/send" element={<SendColorWindow />} />
         <Route path="colorwindow/borrow" element={<BorrowColorWindow />} />
+        <Route
+          path="colorwindow/borrow/create"
+          element={<CreateBorrowColorWindow />}
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

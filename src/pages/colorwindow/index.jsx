@@ -74,7 +74,11 @@ function ColorWindow(props) {
             </Link>
           </div>
           <Link
-            to="/colorwindow/local/create"
+            to={
+              active == "borrow"
+                ? "/colorwindow/borrow/create"
+                : "/colorwindow/local/create"
+            }
             className="px-4 py-2 text-white bg-blue-600 focus:outline-none hover:bg-blue-400 rounded-xl text-xs"
           >
             Create new data
