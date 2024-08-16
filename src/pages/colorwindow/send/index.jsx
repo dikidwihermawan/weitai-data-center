@@ -15,6 +15,7 @@ function SendColorWindow() {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [dataUpdate, setDataUpdate] = useState("");
   const [returned, setReturned] = useState("");
+  const [errors, setErrors] = useState([]);
   let subtitle;
 
   const getData = async () => {
@@ -209,6 +210,12 @@ function SendColorWindow() {
           closeModal();
           getData();
         } catch (e) {
+          let data = e.response.data.data;
+          let arrayBuffer = [];
+          data.forEach((element) => {
+            arrayBuffer[element.path] = element.msg;
+          });
+          setErrors(arrayBuffer);
           swal("Data can't confirmed!", {
             icon: "error",
           });
@@ -253,8 +260,13 @@ function SendColorWindow() {
                 id="returned"
                 onChange={(e) => setReturned(e.target.value)}
                 value={returned}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                className={`${
+                  errors.returned ? "border-red-600" : "border-gray-300"
+                } bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white`}
               />
+              {errors.returned ? (
+                <span className="text-red-600 text-xs">{errors.returned}</span>
+              ) : null}
             </div>
             <button
               type="button"

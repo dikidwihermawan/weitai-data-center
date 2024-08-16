@@ -50,7 +50,7 @@ function CreateColorWindow() {
     <Sidebar>
       <div className="max-w-screen-xl mx-auto">
         <div className="px-4 pt-4 pb-12 flex items-center justify-between">
-          <h1 className="text-xl font-semibold">Create Color Window</h1>
+          <h1 className="text-xl font-semibold">Buat Color Window</h1>
           <Link
             to="/colorwindow"
             className="px-4 py-2 rounded text-xs text-white bg-green-600 hover:bg-green-800"
@@ -172,7 +172,7 @@ function CreateColorWindow() {
                   htmlFor="type"
                   className="block mb-2 text-xs font-medium text-gray-900 dark:text-white"
                 >
-                  JENIS
+                  Jenis
                 </label>
                 <select
                   onChange={(e) => {

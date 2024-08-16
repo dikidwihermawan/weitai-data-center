@@ -13,8 +13,19 @@ function CreateBorrowColorWindow() {
   const [type, setType] = useState("");
   const [date, setDate] = useState("");
   const [qty, setQty] = useState("");
+  const [name, setName] = useState("");
+  const [information, setInformation] = useState("");
 
-  const data = { customer, material, color, type, date, qty };
+  const data = {
+    customer,
+    material,
+    color,
+    type,
+    date,
+    qty,
+    name,
+    information,
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(data);
@@ -50,7 +61,7 @@ function CreateBorrowColorWindow() {
     <Sidebar>
       <div className="max-w-screen-xl mx-auto">
         <div className="px-4 pt-4 pb-12 flex items-center justify-between">
-          <h1 className="text-xl font-semibold">Create Color Window</h1>
+          <h1 className="text-xl font-semibold">Pinjam Color Window</h1>
           <Link
             to="/colorwindow"
             className="px-4 py-2 rounded text-xs text-white bg-green-600 hover:bg-green-800"
@@ -60,8 +71,8 @@ function CreateBorrowColorWindow() {
         </div>
         <form onSubmit={handleSubmit} method="POST">
           <div className="px-4 space-y-4">
-            <div className="grid gap-6 mb-6 md:grid-cols-10">
-              <div className="col-span-5">
+            <div className="grid gap-6 mb-6 md:grid-cols-12">
+              <div className="col-span-4">
                 <label
                   htmlFor="customer"
                   className="block mb-2 text-xs font-medium text-gray-900 dark:text-white"
@@ -107,7 +118,7 @@ function CreateBorrowColorWindow() {
                   </span>
                 ) : null}
               </div>
-              <div className="col-span-5">
+              <div className="col-span-4">
                 <label
                   htmlFor="material"
                   className="block mb-2 text-xs font-medium text-gray-900 dark:text-white"
@@ -167,12 +178,12 @@ function CreateBorrowColorWindow() {
                   <span className="text-red-600 text-xs">{errors.color}</span>
                 ) : null}
               </div>
-              <div className="col-span-2">
+              <div className="col-span-3">
                 <label
                   htmlFor="type"
                   className="block mb-2 text-xs font-medium text-gray-900 dark:text-white"
                 >
-                  JENIS
+                  Jenis
                 </label>
                 <select
                   onChange={(e) => {
@@ -198,7 +209,7 @@ function CreateBorrowColorWindow() {
                   <span className="text-red-600 text-xs">{errors.type}</span>
                 ) : null}
               </div>
-              <div className="col-span-2">
+              <div className="col-span-3">
                 <label
                   htmlFor="qty"
                   className="block mb-2 text-xs font-medium text-gray-900 dark:text-white"
@@ -225,7 +236,7 @@ function CreateBorrowColorWindow() {
                   <span className="text-red-600 text-xs">{errors.qty}</span>
                 ) : null}
               </div>
-              <div className="col-span-2">
+              <div className="col-span-3">
                 <label
                   htmlFor="date"
                   className="block mb-2 text-xs font-medium text-gray-900 dark:text-white"
@@ -246,6 +257,54 @@ function CreateBorrowColorWindow() {
                 />
                 {errors.date ? (
                   <span className="text-red-600 text-xs">{errors.date}</span>
+                ) : null}
+              </div>
+              <div className="col-span-3">
+                <label
+                  htmlFor="name"
+                  className="block mb-2 text-xs font-medium text-gray-900 dark:text-white"
+                >
+                  Peminjam
+                </label>
+                <input
+                  type="name"
+                  id="name"
+                  name="name"
+                  value={name}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
+                  className={`bg-gray-50 border ${
+                    errors.date ? "border-red-600" : "border-gray-300"
+                  } text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
+                />
+                {errors.name ? (
+                  <span className="text-red-600 text-xs">{errors.name}</span>
+                ) : null}
+              </div>
+              <div className="col-span-12">
+                <label
+                  htmlFor="information"
+                  className="block mb-2 text-xs font-medium text-gray-900 dark:text-white"
+                >
+                  Keterangan
+                </label>
+                <textarea
+                  value={information}
+                  onChange={(e) => {
+                    setInformation(e.target.value);
+                  }}
+                  className={`resize-none bg-gray-50 border ${
+                    errors.information ? "border-red-600" : "border-gray-300"
+                  } text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
+                  name="information"
+                  id="information"
+                  placeholder="Masukkan Keterangan"
+                ></textarea>
+                {errors.information ? (
+                  <span className="text-red-600 text-xs">
+                    {errors.information}
+                  </span>
                 ) : null}
               </div>
             </div>
