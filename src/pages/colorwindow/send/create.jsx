@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import swal from "sweetalert";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import Sidebar from "../../../header/sidebar";
+import Sidebar from "../../../sidebar";
 
 function CreateSendColorWindow() {
   const params = useParams();
@@ -45,7 +45,7 @@ function CreateSendColorWindow() {
         try {
           const response = await axios.post(
             `colorwindow/local/send/${params.id}`,
-            data
+            data,
           );
           swal(response.data.success, {
             icon: "success",

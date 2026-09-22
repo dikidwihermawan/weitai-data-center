@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import swal from "sweetalert";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import Sidebar from "../../../header/sidebar";
+import Sidebar from "../../../sidebar";
 
 function EditColorWindow() {
   const params = useParams();
@@ -42,7 +42,7 @@ function EditColorWindow() {
         try {
           const response = await axios.put(
             `colorwindow/local/update/${params.id}`,
-            data
+            data,
           );
           swal(response.data.success, {
             icon: "success",

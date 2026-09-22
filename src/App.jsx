@@ -1,5 +1,5 @@
 import Router from "./routes";
-import Navbar from "./header";
+import Navbar from "./sidebar";
 
 function App() {
   return (

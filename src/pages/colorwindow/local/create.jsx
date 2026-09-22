@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import swal from "sweetalert";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import Sidebar from "../../../header/sidebar";
+import Sidebar from "../../../sidebar";
 
 function CreateColorWindow() {
   const redirect = useNavigate();

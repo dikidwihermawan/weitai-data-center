@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../../sidebar";
 
-function ColorWindow(props) {
+function Stock(props) {
   const [active, setActive] = useState("");
   const [searchInput, setSearchInput] = useState("");
 
@@ -90,4 +90,4 @@ function ColorWindow(props) {
   );
 }
 
-export default ColorWindow;
+export default Stock;
