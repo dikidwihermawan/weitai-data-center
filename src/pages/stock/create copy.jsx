@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import swal from "sweetalert";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import Sidebar from "../../../sidebar";
+import Sidebar from "../../sidebar";
 
 function CreateStock() {
   const navigate = useNavigate();
@@ -11,11 +11,8 @@ function CreateStock() {
   const initialData = {
     material: "",
     name: "",
-    lot_number: "",
     rack: "",
-    qty: "",
-    entry_date: "",
-    description: "",
+    total_qty: "",
   };
 
   const [data, setData] = useState(initialData);
@@ -150,32 +147,6 @@ function CreateStock() {
                 )}
               </div>
 
-              {/* Lot Number */}
-              <div className="col-span-4">
-                <label
-                  htmlFor="lot_number"
-                  className="block mb-2 text-xs font-medium text-gray-900 dark:text-white"
-                >
-                  Lot Number
-                </label>
-                <input
-                  type="text"
-                  id="lot_number"
-                  name="lot_number"
-                  autoComplete="off"
-                  value={data.lot_number}
-                  onChange={handleChange}
-                  className={`bg-gray-50 border ${
-                    errors.lot_number ? "border-red-600" : "border-gray-300"
-                  } text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
-                />
-                {errors.lot_number && (
-                  <span className="text-red-600 text-xs">
-                    {errors.lot_number}
-                  </span>
-                )}
-              </div>
-
               {/* Rack */}
               <div className="col-span-2">
                 <label
@@ -212,27 +183,29 @@ function CreateStock() {
               {/* Quantity */}
               <div className="col-span-2">
                 <label
-                  htmlFor="qty"
+                  htmlFor="total_qty"
                   className="block mb-2 text-xs font-medium text-gray-900 dark:text-white"
                 >
                   Quantity
                 </label>
                 <input
                   type="number"
-                  id="qty"
-                  name="qty"
+                  id="total_qty"
+                  name="total_qty"
                   min="0.01"
                   step="any"
                   placeholder="Min 0.01"
                   autoComplete="off"
-                  value={data.qty}
+                  value={data.total_qty}
                   onChange={handleChange}
                   className={`bg-gray-50 border ${
-                    errors.qty ? "border-red-600" : "border-gray-300"
+                    errors.total_qty ? "border-red-600" : "border-gray-300"
                   } text-gray-900 text-xs rounded-lg focus:outline-none focus:ring-blue-600 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-600 dark:focus:border-blue-500`}
                 />
-                {errors.qty && (
-                  <span className="text-red-600 text-xs">{errors.qty}</span>
+                {errors.total_qty && (
+                  <span className="text-red-600 text-xs">
+                    {errors.total_qty}
+                  </span>
                 )}
               </div>
 

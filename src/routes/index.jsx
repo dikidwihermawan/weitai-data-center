@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import NotFound from "../error/404";
 import Home from "../pages/home";
 import PurchaseOrder from "../pages/purchaseorder";
 import LocalColorWindow from "../pages/colorwindow/local";
@@ -7,9 +8,9 @@ import EditColorWindow from "../pages/colorwindow/local/edit";
 import CreateSendToColorWindow from "../pages/colorwindow/send/create";
 import SendColorWindow from "../pages/colorwindow/send";
 import BorrowColorWindow from "../pages/colorwindow/borrow";
-import NotFound from "../error/404";
 import Stock from "../pages/stock";
-import CreateStock from "../pages/stock/local/create";
+import CreateStock from "../pages/stock/create";
+import ViewStock from "../pages/stock/view";
 
 export default function Router() {
   return (
@@ -19,6 +20,7 @@ export default function Router() {
         <Route path="purchaseorder" element={<PurchaseOrder />} />
         <Route path="stocks" element={<Stock />} />
         <Route path="stocks/create" element={<CreateStock />} />
+        <Route path="stocks/view" element={<ViewStock />} />
         <Route path="colorwindow" element={<LocalColorWindow />} />
         <Route path="colorwindow/local" element={<LocalColorWindow />} />
         <Route

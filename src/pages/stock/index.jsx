@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Sidebar from "../../sidebar";
 import axios from "axios";
 import DataTable from "react-data-table-component";
-import { IconEdit, IconTransferOut, IconTrash } from "@tabler/icons-react";
-import { useNavigate } from "react-router-dom";
+import { IconEdit, IconEye, IconTrash } from "@tabler/icons-react";
 import swal from "sweetalert";
 
-function Stock(props) {
+function Stock() {
+  const redirect = useNavigate();
   const [active, setActive] = useState("");
   const [searchInput, setSearchInput] = useState("");
   const [stocks, setStocks] = useState([]);
@@ -48,10 +48,8 @@ function Stock(props) {
   };
 
   const handleClick = (id, action) => {
-    if (action == "edit") {
-      redirect(`local/edit/${id}`);
-    } else if (action == "view") {
-      redirect(`local/send/${id}`);
+    if (action == "view") {
+      redirect(`view/${id}`);
     } else if (action == "delete") {
       deleteData(id);
     }
@@ -60,50 +58,55 @@ function Stock(props) {
   const columns = [
     {
       name: "No",
-      selector: (row, index) => <div style={{ fontSize: 10 }}>{index + 1}</div>,
+      selector: (row, index) => <div style={{ fontSize: 12 }}>{index + 1}</div>,
       sortable: false, // Disarankan false karena nomor urut bergantung pada posisi baris
       width: "70px",
     },
     {
       name: "Material",
-      selector: (row) => <div style={{ fontSize: 10 }}>{row.material}</div>,
+      selector: (row) => <div style={{ fontSize: 12 }}>{row.material}</div>,
       sortable: true,
       width: "120px",
     },
     {
       name: "Name",
-      selector: (row) => <div style={{ fontSize: 10 }}>{row.name}</div>,
+      selector: (row) => <div style={{ fontSize: 12 }}>{row.name}</div>,
       sortable: true,
-      width: "200px",
+      width: "250px",
     },
     {
-      name: "Qty",
-      selector: (row) => <div style={{ fontSize: 10 }}>{row.qty}</div>,
-      sortable: true,
-      width: "120px",
-    },
-    {
-      name: "Rack",
-      selector: (row) => <div style={{ fontSize: 10 }}>{row.rack}</div>,
+      name: "Rak",
+      selector: (row) => <div style={{ fontSize: 12 }}>{row.rack}</div>,
       sortable: true,
       width: "100px",
     },
     {
-      name: "Lot Number",
-      selector: (row) => <div style={{ fontSize: 10 }}>{row.lot_number}</div>,
-      sortable: true,
-      width: "200px",
-    },
-    {
-      name: "Entry Date",
-      selector: (row) => <div style={{ fontSize: 10 }}>{row.entry_date}</div>,
+      name: "Qty",
+      selector: (row) => (
+        <div style={{ fontSize: 12 }}>
+          {!row.total_qty || Number(row.total_qty) === 0 ? "-" : row.total_qty}
+        </div>
+      ),
       sortable: true,
       width: "120px",
     },
-
+    {
+      name: "Usage",
+      selector: (row) => <div style={{ fontSize: 12 }}>{row.usage || "-"}</div>,
+      sortable: true,
+      width: "120px",
+    },
+    {
+      name: "Balance",
+      selector: (row) => (
+        <div style={{ fontSize: 12 }}>{row.qty - row.usage || "-"}</div>
+      ),
+      sortable: true,
+      width: "120px",
+    },
     {
       name: "Action",
-      selector: (row) => buttonAction(row._id),
+      selector: (row) => buttonAction(row.id),
       sortable: false,
     },
   ];
@@ -112,18 +115,11 @@ function Stock(props) {
     return (
       <div className="flex items-center space-x-2">
         <button
-          onClick={() => handleClick(id, "edit")}
-          className="px-2 py-2 text-xs rounded"
-          title="Edit"
-        >
-          <IconEdit stroke={1} width={20} />
-        </button>
-        <button
           onClick={() => handleClick(id, "view")}
           className="px-2 py-2 text-xs rounded"
-          title="Kirim"
+          title="View"
         >
-          <IconTransferOut stroke={1} width={20} />
+          <IconEye stroke={1} width={20} />
         </button>
         <button
           onClick={() => handleClick(id, "delete")}
