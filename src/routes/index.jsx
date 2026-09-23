@@ -9,6 +9,7 @@ import SendColorWindow from "../pages/colorwindow/send";
 import BorrowColorWindow from "../pages/colorwindow/borrow";
 import NotFound from "../error/404";
 import Stock from "../pages/stock";
+import CreateStock from "../pages/stock/local/create";
 
 export default function Router() {
   return (
@@ -16,7 +17,8 @@ export default function Router() {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="purchaseorder" element={<PurchaseOrder />} />
-        <Route path="stock" element={<Stock />} />
+        <Route path="stocks" element={<Stock />} />
+        <Route path="stocks/create" element={<CreateStock />} />
         <Route path="colorwindow" element={<LocalColorWindow />} />
         <Route path="colorwindow/local" element={<LocalColorWindow />} />
         <Route

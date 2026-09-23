@@ -58,7 +58,7 @@ export default function Sidebar({ children }) {
                 <span className="ms-3">Purchase Order</span>
               </NavLink>
               <NavLink
-                to="/stock"
+                to="/stocks"
                 className={({ isActive, isPending, isTransitioning }) =>
                   [
                     "flex items-center p-2 hover:bg-gray-700 transition-colors",
